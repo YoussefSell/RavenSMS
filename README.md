@@ -1,4 +1,4 @@
-![RavenSMS](https://github.com/YoussefSell/RavenSMS/blob/master/assets/logo.png "RavenSMS")
+<img width="100" height="100" alt="RavenSMS" src="https://github.com/YoussefSell/RavenSMS/blob/master/assets/logo.png">
 
 # RavenSMS - SMS delivery channel
 
