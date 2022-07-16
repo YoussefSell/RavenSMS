@@ -15,7 +15,10 @@ public class RavenSmsOptionValueNotSpecifiedException : RavenSmsException
     /// <inheritdoc/>
     protected RavenSmsOptionValueNotSpecifiedException(
       System.Runtime.Serialization.SerializationInfo info,
-      System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+      System.Runtime.Serialization.StreamingContext context) : base(info, context)
+    {
+        OptionsName = string.Empty;
+    }
 
     /// <summary>
     /// option parameter name

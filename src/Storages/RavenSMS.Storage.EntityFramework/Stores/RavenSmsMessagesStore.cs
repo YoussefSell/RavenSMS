@@ -140,7 +140,7 @@ public partial class RavenSmsMessagesStore
         if (!string.IsNullOrEmpty(filter.SearchQuery))
             query = query.Where(e =>
                 EF.Functions.Like(e.Body, $"%{filter.SearchQuery}%") ||
-                EF.Functions.Like(e.Client.PhoneNumber, $"%{filter.SearchQuery}%")
+                EF.Functions.Like(e.Client!.PhoneNumber, $"%{filter.SearchQuery}%")
             );
 
         if (!string.IsNullOrEmpty(filter.StartDate) && DateTimeOffset.TryParseExact(filter.StartDate, _dateFormat, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var startDate))
@@ -159,7 +159,7 @@ public partial class RavenSmsMessagesStore
             query = query.Where(e => !filter.ExcludeStatus.Contains(e.Status));
 
         if (filter.To is not null && filter.To.Any())
-            query = query.Where(e => filter.To.Contains((string)e.To));
+            query = query.Where(e => filter.To.Contains(e.To));
 
         if (filter.Clients is not null && filter.Clients.Any())
             query = query.Where(e => filter.Clients.Contains(e.ClientId));

@@ -6,7 +6,7 @@
 public class RavenSmsMessageSendAttemptEntityConfiguration : IEntityTypeConfiguration<RavenSmsMessageSendAttempt>
 {
     readonly ValueComparer valueComparer = new ValueComparer<ICollection<RavenSmsMessageSendAttemptError>>(
-        (c1, c2) => c1.SequenceEqual(c2),
+        (c1, c2) => c1!.SequenceEqual(c2!),
         c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
         c => c.ToList());
 
