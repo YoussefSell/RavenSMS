@@ -1,0 +1,42 @@
+name: Publish Packages
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.*
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack RavenSMS
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/RavenSMS/RavenSMS.csproj -o .
+
+      - name: Pack RavenSMS.Storage.EntityFramework
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/Storages/RavenSMS.Storage.EntityFramework/RavenSMS.Storage.EntityFramework.csproj -o .
+
+      - name: Pack RavenSMS.Queue.Coravel
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/Queues/RavenSMS.Queue.Coravel/RavenSMS.Queue.Coravel.csproj -o .
+
+      - name: Pack RavenSMS.Queue.Hangfire
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/Queues/RavenSMS.Queue.Hangfire/RavenSMS.Queue.Hangfire.csproj -o .
+
+      - name: Push packages
+        run: dotnet nuget push *.nupkg --api-key ${{secrets.NUGET_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Upload assets to release
+        run: |
+          chmod +x ./publish-assets.sh
+          ./publish-assets.sh ${{ github.event.release.tag_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
