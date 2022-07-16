@@ -1,4 +1,4 @@
-![alt text](https://github.com/youssefsell/ravensms/tree/master/assets/logo.png "RavenSMS")
+![alt text](https://github.com/YoussefSell/RavenSMS/blob/master/assets/logo.png "RavenSMS")
 
 # RavenSMS - SMS delivery channel
 
