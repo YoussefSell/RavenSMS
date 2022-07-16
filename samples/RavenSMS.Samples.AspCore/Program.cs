@@ -36,11 +36,11 @@ builder.Services.AddQueue();
 
 // add SMS.Net services
 builder.Services
-    .UseRavenSMS(config =>
+    .AddRavenSMS(config =>
     {
         config.UseInMemoryQueue();
         config.UseInMemoryStores();
-        config.SetServerId("srv_defaultserver13");
+        config.SetServerId("srv_defaultserver");
     });
 
 var app = builder.Build();

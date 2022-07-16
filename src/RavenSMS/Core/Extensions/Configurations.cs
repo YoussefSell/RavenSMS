@@ -8,25 +8,12 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class Configurations
 {
     /// <summary>
-    /// add the RavenSMS channel to be used with your SMS service, 
-    /// this will register RavenSMS with the InMemory implementation of the Queue and the stores.
-    /// </summary>
-    /// <param name="services">the SMS.Net builder instance.</param>
-    /// <returns>instance of <see cref="SmsNetBuilder"/> to enable methods chaining.</returns>
-    public static IServiceCollection UseRavenSMS(this IServiceCollection services)
-        => services.UseRavenSMS(options =>
-        {
-            options.UseInMemoryQueue();
-            options.UseInMemoryStores();
-        });
-
-    /// <summary>
     /// add the RavenSMS channel to be used with your SMS service.
     /// </summary>
     /// <param name="services">the SMS.Net builder instance.</param>
     /// <param name="config">the configuration builder instance.</param>
     /// <returns>instance of <see cref="SmsNetBuilder"/> to enable methods chaining.</returns>
-    public static IServiceCollection UseRavenSMS(this IServiceCollection services, Action<RavenSmsBuilder> config)
+    public static IServiceCollection AddRavenSMS(this IServiceCollection services, Action<RavenSmsBuilder> config)
     {
         // load the configuration
         var builderOptions = new RavenSmsBuilder(services);

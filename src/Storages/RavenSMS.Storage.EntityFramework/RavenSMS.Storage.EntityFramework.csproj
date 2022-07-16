@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Title>RavenSMS - EF core stores</Title>
+		<Title>RavenSMS - EF core store</Title>
 		<PackageId>RavenSMS.Storage.EntityFramework</PackageId>
 		<PackageTags>SMS.Net; SMS; RavenSMS; EntityFramework</PackageTags>
 		<Description>The EntityFramework stores implementation for RavenSMS.</Description>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Title>RavenSMS channel Coravel queue</Title>
+		<Title>RavenSMS - Coravel queue</Title>
 		<PackageId>RavenSMS.Queue.Coravel</PackageId>
 		<PackageTags>SMS.Net; SMS; RavenSMS; Coravel</PackageTags>
 		<Description>The Coravel queue implementation for RavenSMS.</Description>
