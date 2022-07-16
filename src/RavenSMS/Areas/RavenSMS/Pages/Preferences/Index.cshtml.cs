@@ -16,7 +16,7 @@ public partial class PreferencesIndexPageModel : BasePageModel
 
     public PreferencesIndexPageModel(
         IRavenSmsManager ravenSmsManager,
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IStringLocalizer<PreferencesIndexPageModel> localizer,
         ILogger<PreferencesIndexPageModel> logger)
         : base(options, localizer, logger)

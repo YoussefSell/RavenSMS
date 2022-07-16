@@ -1,0 +1,40 @@
+<ng-container *transloco="let translate">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{translate('preferences.pages.index.page_title')}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form [formGroup]="_settingsForm" *ngIf="_settingsForm">
+      <h3 class="ion-padding-top ion-padding-start">
+        {{translate('preferences.pages.index.sections.appearance.title')}}
+      </h3>
+      <!-- appearance -->
+      <ion-list style="width: 100%">
+        <ion-item>
+          <ion-icon slot="start" name="moon-outline"></ion-icon>
+          <ion-label>
+            {{translate('preferences.pages.index.sections.appearance.labels.dark_mode')}}
+          </ion-label>
+          <ion-toggle formControlName="darkMode"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="language-outline"></ion-icon>
+          <ion-label>
+            {{translate('preferences.pages.index.sections.appearance.labels.language')}}
+          </ion-label>
+          <ion-select
+            formControlName="language"
+            placeholder="{{translate('preferences.pages.index.sections.appearance.labels.language')}}"
+          >
+            <ion-select-option
+              *ngFor="let language of _languages"
+              value="{{language.value}}"
+              >{{language.label}}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ion-content>
+</ng-container>

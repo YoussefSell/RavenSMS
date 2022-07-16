@@ -133,7 +133,7 @@ public partial class MessagesAddPageModel
     public MessagesAddPageModel(
         IRavenSmsManager ravenSmsManager,
         IRavenSmsClientsManager clientsManager,
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IStringLocalizer<MessagesAddPageModel> localizer,
         ILogger<MessagesAddPageModel> logger)
         : base(options, localizer, logger)

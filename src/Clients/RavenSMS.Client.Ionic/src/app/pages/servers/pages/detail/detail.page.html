@@ -1,0 +1,84 @@
+<ng-container *transloco="let translate">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{translate('servers.pages.details.page_title')}}</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="'/app/tabs/servers'"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ng-container *ngIf="_server; else emptyTemplate">
+      <div class="ion-padding">
+        <p>
+          {{translate('servers.pages.details.labels.server_id')}}: <br />
+          {{_server.id}}
+        </p>
+        <p>
+          {{translate('servers.pages.details.labels.server_status')}}: <br />
+          <span
+            [ngClass]="{
+            'server-online-color': _server.status === _serverStatus.ONLINE, 
+            'server-offline-color': _server.status === _serverStatus.OFFLINE, 
+            'server-disconnected-color': _server.status === _serverStatus.DISCONNECTED, 
+            'server-reconnecting-color': _server.status === _serverStatus.RECONNECTING, 
+            'server-unknown-color': _server.status === _serverStatus.UNKNOWN
+          }"
+            >{{translate('common.enumerations.serverStatus.' +
+            _server.status)}}</span
+          >
+        </p>
+        <p>
+          {{translate('servers.pages.details.labels.server_name')}}: <br />
+          {{_server.name }}
+        </p>
+        <p>
+          {{translate('servers.pages.details.labels.server_url')}}: <br />
+          {{_server.url }}
+        </p>
+        <h3>
+          {{translate('servers.pages.details.labels.server_client_info_title')}}
+        </h3>
+        <p>
+          {{translate('servers.pages.details.labels.server_client_info_id')}}:
+          <br />
+          {{_server.clientInfo.clientId }}
+        </p>
+        <p>
+          {{translate('servers.pages.details.labels.server_client_info_name')}}:
+          <br />
+          {{_server.clientInfo.clientName }}
+        </p>
+        <p>
+          {{translate('servers.pages.details.labels.server_client_info_description')}}:
+          <br />
+          {{_server.clientInfo.clientDescription }}
+        </p>
+      </div>
+      <ion-list>
+        <ion-item (click)="removeServer()" button>
+          <ion-label color="danger"
+            >{{translate('servers.pages.details.actions.remove')}} <br
+          /></ion-label>
+          <ion-icon
+            slot="end"
+            color="danger"
+            size="small"
+            name="trash-outline"
+          ></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+    <ng-template #emptyTemplate>
+      <div class="ion-padding">
+        <div>
+          <p>{{translate('servers.pages.details.page_empty')}}</p>
+          <ion-button [routerLink]="['/app/tabs/servers']">
+            {{translate('servers.pages.details.actions.navigate_back')}}
+          </ion-button>
+        </div>
+      </div>
+    </ng-template>
+  </ion-content>
+</ng-container>

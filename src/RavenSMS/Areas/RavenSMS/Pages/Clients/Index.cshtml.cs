@@ -64,7 +64,7 @@ public partial class ClientIndexPageModel : BasePageModel
     public ClientIndexPageModel(
         IHubContext<RavenSmsHub> hubContext,
         IRavenSmsClientsManager ravenSmsManager,
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IStringLocalizer<ClientIndexPageModel> localizer,
         ILogger<ClientIndexPageModel> logger)
         : base(options, localizer, logger)

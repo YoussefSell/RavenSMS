@@ -1,0 +1,84 @@
+<ng-container *transloco="let translate">
+  <ion-content
+    class="ion-padding-top ion-padding-start ion-padding-end"
+    [style.--background]="scanActive ? '#00000000' : 'var(--ion-item-background, var(--ion-background-color, #fff))'"
+  >
+    <div>
+      <h3 *ngIf="!scanActive">
+        {{translate('servers.pages.setup.labels.heading')}}
+      </h3>
+      <!-- for non web based apps -->
+      <ng-container *ngIf="platform != 'web'; else elseTemplate">
+        <div *ngIf="!scanActive">
+          <div>
+            <p>
+              {{translate('servers.pages.setup.labels.config_description')}}
+            </p>
+            <p>{{translate(messageTranslationKey)}}</p>
+            <ion-button *ngIf="permissionGranted" (click)="startScanning()"
+              >{{translate('servers.pages.setup.actions.start_scan')}}</ion-button
+            >
+            <ion-button
+              *ngIf="showOpenSettingsButton"
+              (click)="openSettingPage()"
+              >{{translate('servers.pages.setup.actions.open_settings')}}</ion-button
+            >
+            <ion-button
+              *ngIf="showGrantPermissionButton"
+              (click)="grantPermissionAsync()"
+              >{{translate('servers.pages.setup.actions.grant_permission')}}</ion-button
+            >
+          </div>
+        </div>
+        <div *ngIf="scanActive" class="scan-box"></div>
+      </ng-container>
+      <!-- for web app only for testing purpose -->
+      <ng-template #elseTemplate>
+        <form
+          [formGroup]="configurationForm"
+          *ngIf="configurationForm"
+          (ngSubmit)="submit()"
+        >
+          <p>{{translate(messageTranslationKey)}}</p>
+          <ion-list style="width: 100%">
+            <!-- client id -->
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="margin-right: 10px; min-width: 100px"
+              >
+                {{translate('servers.pages.setup.labels.client_id')}}
+              </ion-label>
+              <ion-input formControlName="clientId"></ion-input>
+            </ion-item>
+            <!-- server id -->
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="margin-right: 10px; min-width: 100px"
+              >
+                {{translate('servers.pages.setup.labels.server_id')}}
+              </ion-label>
+              <ion-input formControlName="serverId"></ion-input>
+            </ion-item>
+            <!-- server url -->
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="margin-right: 10px; min-width: 100px"
+              >
+                {{translate('servers.pages.setup.labels.server_url')}}
+              </ion-label>
+              <ion-input formControlName="serverUrl"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button type="submit" [disabled]="!configurationForm.valid"
+            >{{translate('servers.pages.setup.actions.configure')}}</ion-button
+          >
+        </form>
+      </ng-template>
+    </div>
+
+    <p>{{DEBUG_MESSAGE}}</p>
+  </ion-content>
+</ng-container>

@@ -49,7 +49,7 @@ public partial class DashboradPageModel : BasePageModel
     public DashboradPageModel(
         IRavenSmsClientsManager clientsManager,
         IRavenSmsMessagesManager messagesManager,
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IStringLocalizer<ClientSetupPageModel> localizer,
         ILogger<ClientSetupPageModel> logger)
         : base(options, localizer, logger)

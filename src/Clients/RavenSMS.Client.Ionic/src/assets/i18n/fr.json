@@ -1,0 +1,14 @@
+{
+    "messages": {
+        "client_already_connected": "ce client est déjà connecté, veuillez créer un nouveau lien sur le serveur et y connecter cette instance client",
+        "Client_Not_Found": "nous n'avons pas pu trouver cette instance client sur le serveur, veuillez créer un nouveau lien sur le serveur et y connecter cette instance client",
+        "client_deleted": "le client a été supprimé du serveur, veuillez créer un nouveau lien sur le serveur et y connecter cette instance client",
+        "disconnect_client": "le client a été forcé de se déconnecter du serveur",
+        "sms_permission": {
+            "header": "Autoriser 'RavenSMS' à envoyer des SMS",
+            "message": "RavenSMS nécessite votre permission pour envoyer des messages SMS, veuillez autoriser le consentement pour que l'application fonctionne.",
+            "action_accept": "Accepter",
+            "action_denied": "Refusé"
+        }
+    }
+}

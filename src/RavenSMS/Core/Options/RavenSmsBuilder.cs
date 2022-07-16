@@ -36,9 +36,9 @@ public class RavenSmsBuilder
     /// <summary>
     /// set the options values
     /// </summary>
-    internal RavenSmsDeliveryChannelOptions InitOptions()
+    internal RavenSmsOptions InitOptions()
     {
-        return new RavenSmsDeliveryChannelOptions
+        return new RavenSmsOptions
         {
             ServerInfo = new RavenSmsServerInfo
             {

@@ -182,7 +182,7 @@ public partial class ClientsPreviewPage : BasePageModel
     public ClientsPreviewPage(
         IHubContext<RavenSmsHub> hubContext,
         IRavenSmsClientsManager ravenSmsManager,
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IStringLocalizer<ClientsPreviewPage> localizer,
         ILogger<ClientsPreviewPage> logger)
         : base(options, localizer, logger)

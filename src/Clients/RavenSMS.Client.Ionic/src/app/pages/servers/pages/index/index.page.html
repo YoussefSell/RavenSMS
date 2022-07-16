@@ -1,0 +1,114 @@
+<ng-container *transloco="let translate">
+  <ion-header translucent="true">
+    <ion-toolbar>
+      <ion-buttons *ngIf="!_showSearchbar" slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title *ngIf="!_is_ios && !_showSearchbar"
+        >{{translate('servers.pages.index.page_title')}}</ion-title
+      >
+      <ion-searchbar
+        *ngIf="_showSearchbar"
+        showCancelButton="always"
+        (ionChange)="search()"
+        [(ngModel)]="_searchQuery"
+        (ionCancel)="_showSearchbar = false"
+        placeholder="Search"
+      ></ion-searchbar>
+      <ion-buttons slot="end">
+        <ion-button
+          *ngIf="!_is_ios && !_showSearchbar"
+          (click)="_showSearchbar = true"
+        >
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large"
+          >{{translate('servers.pages.index.page_title')}}</ion-title
+        >
+      </ion-toolbar>
+      <ion-toolbar>
+        <ion-searchbar
+          [(ngModel)]="_searchQuery"
+          (ionChange)="search()"
+          [placeholder]="translate('servers.pages.index.actions.search.placeholder')"
+        ></ion-searchbar>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-list #scheduleList [hidden]="_filteredServers.length === 0">
+      <ion-item-group *ngFor="let server of _filteredServers">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle
+              ><ion-badge [color]="getServerStatusBadgeColor(server)"
+                >{{translate('common.enumerations.serverStatus.' +
+                server.status)}}</ion-badge
+              ></ion-card-subtitle
+            >
+            <ion-card-title>{{server.name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>
+              <b>{{translate('servers.pages.index.labels.server_id')}}</b>:
+              {{server.id}}
+            </p>
+            <p>
+              <b>{{translate('servers.pages.index.labels.server_url')}}</b>:
+              {{server.url}}
+            </p>
+          </ion-card-content>
+          <ion-footer color="danger">
+            <ion-row>
+              <ion-col
+                *ngIf="server.status == serverStatus.OFFLINE"
+                size="6"
+                class="ion-text-center"
+              >
+                <ion-button
+                  fill="clear"
+                  class="ion-text-capitalize"
+                  (click)="reconnectServer(server)"
+                >
+                  <ion-icon
+                    class="icon-padding-right"
+                    name="radio-outline"
+                  ></ion-icon>
+                  <div>
+                    {{translate('servers.pages.index.actions.reconnect')}}
+                  </div>
+                </ion-button>
+              </ion-col>
+              <ion-col
+                [size]="server.status == serverStatus.OFFLINE ? 6 : 12"
+                class="ion-text-center"
+              >
+                <ion-button
+                  [routerLink]="'/app/tabs/servers/' + server.id"
+                  fill="clear"
+                  class="ion-text-capitalize"
+                >
+                  <ion-icon class="icon-padding-right" name="eye"></ion-icon>
+                  <div>
+                    {{translate('servers.pages.index.actions.details')}}
+                  </div>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-footer>
+        </ion-card>
+      </ion-item-group>
+    </ion-list>
+
+    <ion-list-header [hidden]="_filteredServers.length > 0">
+      {{translate('servers.pages.index.labels.empty_page')}}
+    </ion-list-header>
+  </ion-content>
+</ng-container>

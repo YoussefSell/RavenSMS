@@ -5,12 +5,12 @@
 /// </summary>
 public class BasePageModel : PageModel
 {
-    protected readonly RavenSmsDeliveryChannelOptions _options;
+    protected readonly RavenSmsOptions _options;
     protected readonly IStringLocalizer _localizer;
     protected readonly ILogger _logger;
 
     public BasePageModel(
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IStringLocalizer localizer, 
         ILogger logger)
     {

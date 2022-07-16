@@ -4,11 +4,11 @@ public class RavenSmsHub : Hub
 {
     private readonly ILogger _logger;
     private readonly IRavenSmsClientsManager _clientsManager;
-    private readonly RavenSmsDeliveryChannelOptions _options;
+    private readonly RavenSmsOptions _options;
     private readonly IRavenSmsMessagesManager _messagesManager;
 
     public RavenSmsHub(
-        RavenSmsDeliveryChannelOptions options,
+        RavenSmsOptions options,
         IRavenSmsMessagesManager messagesManager,
         IRavenSmsClientsManager manager,
         ILogger<RavenSmsHub> logger)
