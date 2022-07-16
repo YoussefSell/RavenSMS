@@ -1,9 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Title>RavenSMS - Hangfire queue</Title>
+		<PackageId>RavenSMS.Queue.Hangfire</PackageId>
+		<PackageTags>SMS.Net; SMS; RavenSMS; Hangfire</PackageTags>
+		<Description>The Hangfire queue implementation for RavenSMS.</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Hangfire.Core" Version="1.7.28" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\RavenSMS\RavenSMS.csproj" />
+	</ItemGroup>
 
 </Project>
