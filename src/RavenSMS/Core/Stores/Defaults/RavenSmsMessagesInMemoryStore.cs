@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Stores.InMemory;
+﻿namespace RavenSMS.Internal.Stores.InMemory;
 
 /// <summary>
 /// the default implementation for <see cref="IRavenSmsMessagesStore"/> with an in memory store
@@ -181,7 +181,7 @@ public partial class RavenSmsMessagesInMemoryStore
             query = query.Where(e => !filter.ExcludeStatus.Contains(e.Status));
 
         if (filter.To is not null && filter.To.Any())
-            query = query.Where(e => filter.To.Contains((string)e.To));
+            query = query.Where(e => filter.To.Contains(e.To));
 
         if (filter.Clients is not null && filter.Clients.Any())
             query = query.Where(e => filter.Clients.Contains(e.ClientId));

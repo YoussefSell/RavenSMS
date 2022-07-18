@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Core.Services;
+﻿namespace RavenSMS;
 
 /// <summary>
 /// the RavenSMS service.

@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Utilities;
+﻿namespace RavenSMS.Internal.Utilities;
 
 /// <summary>
 /// use this class to generate unique ids

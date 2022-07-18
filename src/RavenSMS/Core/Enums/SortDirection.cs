@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Enums;
+﻿namespace RavenSMS.Enums;
 
 /// <summary>
 /// the order by type

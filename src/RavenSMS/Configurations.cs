@@ -1,6 +1,4 @@
-﻿using RavenSMS.Core.Services;
-
-namespace RavenSMS;
+﻿namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
 /// the Configurations class
@@ -20,12 +18,12 @@ public static class Configurations
             .RegisterServices();
 
     /// <summary>
-    /// Maps incoming requests with the ravenSMS hub path to the <see cref="RavenSmsHub"/>
+    /// Maps incoming requests with the ravenSMS hub path to the <see cref="RavenSmsWebSocketManager"/>
     /// </summary>
     /// <param name="endpoints">The <see cref="IEndpointRouteBuilder"/> to add the route to.</param>
     public static void MapRavenSmsHub(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapHub<RavenSmsHub>("RavenSMS/Hub");
+        endpoints.MapHub<RavenSmsWebSocketManager>("RavenSMS/Hub");
     }
 
     /// <summary>
@@ -62,7 +60,7 @@ public static class Configurations
     internal static RavenSmsBuilder RegisterOptions(this RavenSmsBuilder builder)
     {
         builder.ServiceCollection.ConfigureOptions(typeof(RavenSmsUIConfigureOptions));
-        builder.ServiceCollection.Configure<RavenSmsOptions>(o => Options.Create(builder.InitOptions()));
+        builder.ServiceCollection.Configure<RavenSmsOptions>(o => Options.Options.Create(builder.InitOptions()));
         return builder;
     }
 

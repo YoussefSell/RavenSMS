@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Models;
+﻿namespace RavenSMS.Models;
 
 /// <summary>
 /// defines a sending attempt error

@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Constants;
+﻿namespace RavenSMS.Internal.Constants;
 
 /// <summary>
 ///  class that defines the disconnection reasons

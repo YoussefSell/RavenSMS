@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Models;
+﻿namespace RavenSMS;
 
 /// <summary>
 /// the sms message

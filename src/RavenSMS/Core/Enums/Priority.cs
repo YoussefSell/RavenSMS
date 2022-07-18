@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Enums;
+﻿namespace RavenSMS;
 
 /// <summary>
 /// Specifies the priority of the message.

@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Pages;
+﻿namespace RavenSMS.Internal.Constants;
 
 /// <summary>
 ///  class that defines the sms errors messages

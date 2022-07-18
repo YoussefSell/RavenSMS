@@ -1,4 +1,4 @@
-﻿namespace RavenSMS;
+﻿namespace Microsoft.Extensions.DependencyInjection;
 
 internal class RavenSmsUIConfigureOptions : IPostConfigureOptions<StaticFileOptions>
 {

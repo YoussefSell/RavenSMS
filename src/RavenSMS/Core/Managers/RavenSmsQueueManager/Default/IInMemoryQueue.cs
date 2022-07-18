@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Queues.InMemory;
+﻿namespace RavenSMS.Internal.Queues.InMemory;
 
 /// <summary>
 /// interface to identify the InMemory queue in DI

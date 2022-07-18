@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Queues;
+﻿namespace RavenSMS.Managers;
 
 /// <summary>
 /// the SMS Queue manager

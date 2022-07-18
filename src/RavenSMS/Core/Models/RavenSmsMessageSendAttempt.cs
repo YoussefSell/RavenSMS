@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Models;
+﻿namespace RavenSMS.Models;
 
 /// <summary>
 /// this class used to hold info about a send attempt of a sms message

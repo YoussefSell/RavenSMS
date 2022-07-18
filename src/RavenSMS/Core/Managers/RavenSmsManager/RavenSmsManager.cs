@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Managers;
+﻿namespace RavenSMS.Internal.Managers;
 
 /// <summary>
 /// the ravenSMS manager, used to manage all messages sent with RavenSMS. 
@@ -106,13 +106,13 @@ public partial class RavenSmsManager : IRavenSmsManager
 public partial class RavenSmsManager
 {
     private readonly IQueueManager _queueManager;
-    private readonly IHubContext<RavenSmsHub> _clientConnector;
+    private readonly IHubContext<RavenSmsWebSocketManager> _clientConnector;
     private readonly IRavenSmsClientsManager _clientsManagers;
     private readonly IRavenSmsMessagesManager _messagesManager;
 
     public RavenSmsManager(
         IQueueManager queueManager,
-        IHubContext<RavenSmsHub> clientConnector,
+        IHubContext<RavenSmsWebSocketManager> clientConnector,
         IRavenSmsClientsManager clientsManagers,
         IRavenSmsMessagesManager messagesManager)
     {

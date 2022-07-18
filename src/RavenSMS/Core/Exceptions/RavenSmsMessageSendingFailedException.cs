@@ -1,4 +1,4 @@
-﻿namespace RavenSMS;
+﻿namespace RavenSMS.Exceptions;
 
 /// <summary>
 /// exception thrown when the sending of sms message has failed

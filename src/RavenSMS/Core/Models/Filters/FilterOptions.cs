@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Models.Filters;
+﻿namespace RavenSMS.Models.Filters;
 
 /// <summary>
 /// the base class that defines the filter option to get filtered data

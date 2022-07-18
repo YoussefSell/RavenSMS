@@ -1,4 +1,4 @@
-﻿namespace RavenSMS;
+﻿namespace RavenSMS.Exceptions;
 
 /// <summary>
 /// exception thrown when a RavenSms option is not specified

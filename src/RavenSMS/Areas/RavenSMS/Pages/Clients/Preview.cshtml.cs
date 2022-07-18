@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Pages;
+﻿namespace RavenSMS.Internal.Pages;
 
 /// <summary>
 /// the Messages index pages
@@ -177,10 +177,10 @@ public partial class ClientsPreviewPage
 public partial class ClientsPreviewPage : BasePageModel
 {
     private readonly IRavenSmsClientsManager _manager;
-    private readonly IHubContext<RavenSmsHub> _hubContext;
+    private readonly IHubContext<RavenSmsWebSocketManager> _hubContext;
 
     public ClientsPreviewPage(
-        IHubContext<RavenSmsHub> hubContext,
+        IHubContext<RavenSmsWebSocketManager> hubContext,
         IRavenSmsClientsManager ravenSmsManager,
         IOptions<RavenSmsOptions> options,
         ILogger<MessagesAddPageModel> logger,

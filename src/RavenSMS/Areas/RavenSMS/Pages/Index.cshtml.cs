@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Pages;
+﻿namespace RavenSMS.Internal.Pages;
 
 /// <summary>
 /// the dashboard pages

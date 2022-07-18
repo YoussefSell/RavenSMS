@@ -1,14 +1,14 @@
-﻿namespace RavenSMS.SignalR;
+﻿namespace RavenSMS.Internal.Managers;
 
-public class RavenSmsHub : Hub
+public class RavenSmsWebSocketManager : Hub
 {
     private readonly ILogger _logger;
     private readonly RavenSmsOptions _options;
     private readonly IRavenSmsClientsManager _clientsManager;
     private readonly IRavenSmsMessagesManager _messagesManager;
 
-    public RavenSmsHub(
-        ILogger<RavenSmsHub> logger,
+    public RavenSmsWebSocketManager(
+        ILogger<RavenSmsWebSocketManager> logger,
         IRavenSmsClientsManager manager,
         IOptions<RavenSmsOptions> options,
         IRavenSmsMessagesManager messagesManager)
@@ -32,6 +32,35 @@ public class RavenSmsHub : Hub
         // disconnecting the client
         _logger.LogInformation("client associated with connection Id: {connectionId}, has been disconnected", Context.ConnectionId);
         await _clientsManager.ClientDisconnectedAsync(Context.ConnectionId);
+    }
+
+    public async Task LoadClientMessagesAsync(string clientId)
+    {
+        // get the client associated with the given id
+        var client = await _clientsManager.FindClientByIdAsync(clientId);
+        if (client is null)
+        {
+            await Clients.Caller.SendAsync("forceDisconnect", DisconnectionReason.ClientNotFound);
+            return;
+        }
+
+        // get the list of messages
+        var messages = await _messagesManager.GetAllMessagesAsync(clientId);
+
+        // send the event to read the client messages
+        await Clients.Caller.SendAsync("ReadClientSentMessagesAsync", messages
+            .Select(message => new
+            {
+                id = message.Id,
+                content = message.Body,
+                sentOn = message.SentOn,
+                status = message.Status,
+                from = client.PhoneNumber,
+                to = message.To.ToString(),
+                createdOn = message.CreateOn,
+                deliverAt = message.DeliverAt,
+                serverId = _options.ServerId,
+            }));
     }
 
     public async Task PersistClientConnectionAsync(string clientId, bool forceConnection)
@@ -98,40 +127,11 @@ public class RavenSmsHub : Hub
 
         await _messagesManager.SaveAsync(message);
     }
-
-    public async Task LoadClientMessagesAsync(string clientId)
-    {
-        // get the client associated with the given id
-        var client = await _clientsManager.FindClientByIdAsync(clientId);
-        if (client is null)
-        {
-            await Clients.Caller.SendAsync("forceDisconnect", DisconnectionReason.ClientNotFound);
-            return;
-        }
-
-        // get the list of messages
-        var messages = await _messagesManager.GetAllMessagesAsync(clientId);
-
-        // send the event to read the client messages
-        await Clients.Caller.SendAsync("ReadClientSentMessagesAsync", messages
-            .Select(message => new
-            {
-                id = message.Id,
-                content = message.Body,
-                sentOn = message.SentOn,
-                status = message.Status,
-                from = client.PhoneNumber,
-                to = message.To.ToString(),
-                createdOn = message.CreateOn,
-                deliverAt = message.DeliverAt,
-                serverId = _options.ServerId,
-            }));
-    }
 }
 
 public static class RavenSmsHubExtensions
 {
-    public static async Task<Result> UpdateClientInfosync(this IHubContext<RavenSmsHub> hub, RavenSmsClient client, CancellationToken cancellationToken = default)
+    public static async Task<Result> UpdateClientInfosync(this IHubContext<RavenSmsWebSocketManager> hub, RavenSmsClient client, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -162,7 +162,7 @@ public static class RavenSmsHubExtensions
         }
     }
 
-    public static async Task<Result> SendSmsMessageAsync(this IHubContext<RavenSmsHub> hub, RavenSmsClient client, RavenSmsMessage message, CancellationToken cancellationToken = default)
+    public static async Task<Result> SendSmsMessageAsync(this IHubContext<RavenSmsWebSocketManager> hub, RavenSmsClient client, RavenSmsMessage message, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -186,7 +186,7 @@ public static class RavenSmsHubExtensions
                 status = message.Status,
                 content = message.Body,
                 id = message.Id,
-                
+
             }, cancellationToken: cancellationToken);
 
             return Result.Success();
@@ -198,7 +198,7 @@ public static class RavenSmsHubExtensions
         }
     }
 
-    public static async Task<Result> ForceDisconnectAsync(this IHubContext<RavenSmsHub> hub, RavenSmsClient client, string reason, CancellationToken cancellationToken = default)
+    public static async Task<Result> ForceDisconnectAsync(this IHubContext<RavenSmsWebSocketManager> hub, RavenSmsClient client, string reason, CancellationToken cancellationToken = default)
     {
         try
         {

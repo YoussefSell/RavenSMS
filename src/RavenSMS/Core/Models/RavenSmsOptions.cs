@@ -1,4 +1,4 @@
-﻿namespace RavenSMS;
+﻿namespace RavenSMS.Models;
 
 /// <summary>
 /// the options for configuring the RavenSMS server

@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Domain.Models;
+﻿namespace RavenSMS.Models;
 
 /// <summary>
 /// a class that defines a client that is used for sending SMS messages.

@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Queues.InMemory;
+﻿namespace RavenSMS.Internal.Queues.InMemory;
 
 /// <summary>
 /// this class defines an in memory job definition

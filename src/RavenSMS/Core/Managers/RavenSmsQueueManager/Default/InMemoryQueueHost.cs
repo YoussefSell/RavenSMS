@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Queues.InMemory;
+﻿namespace RavenSMS.Internal.Queues.InMemory;
 
 using System;
 using System.Threading;

@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Managers;
+﻿namespace RavenSMS.Internal.Managers;
 
 /// <summary>
 /// the ravenSMs client manager implementation

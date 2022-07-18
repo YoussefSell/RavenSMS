@@ -1,4 +1,4 @@
-﻿namespace RavenSMS.Stores.InMemory;
+﻿namespace RavenSMS.Internal.Stores.InMemory;
 
 /// <summary>
 /// the default implementation for <see cref="IRavenSmsClientsStore"/> with an in memory store

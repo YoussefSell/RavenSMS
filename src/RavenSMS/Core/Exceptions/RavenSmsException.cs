@@ -1,4 +1,4 @@
-﻿namespace RavenSMS;
+﻿namespace RavenSMS.Exceptions;
 
 /// <summary>
 /// the base exception for all RavenSms related errors
