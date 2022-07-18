@@ -64,10 +64,10 @@ public partial class ClientIndexPageModel : BasePageModel
     public ClientIndexPageModel(
         IHubContext<RavenSmsHub> hubContext,
         IRavenSmsClientsManager ravenSmsManager,
-        RavenSmsOptions options,
-        IStringLocalizer<ClientIndexPageModel> localizer,
-        ILogger<ClientIndexPageModel> logger)
-        : base(options, localizer, logger)
+        IOptions<RavenSmsOptions> options,
+        ILogger<MessagesAddPageModel> logger,
+        IStringLocalizer<MessagesAddPageModel> localizer)
+        : base(logger, localizer, options)
     {
         _hubContext = hubContext;
         _manager = ravenSmsManager;

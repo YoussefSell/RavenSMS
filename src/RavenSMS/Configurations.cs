@@ -1,6 +1,6 @@
 ﻿using RavenSMS.Core.Services;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace RavenSMS;
 
 /// <summary>
 /// the Configurations class
@@ -12,28 +12,12 @@ public static class Configurations
     /// </summary>
     /// <param name="services">the SMS.Net builder instance.</param>
     /// <param name="config">the configuration builder instance.</param>
-    /// <returns>instance of <see cref="SmsNetBuilder"/> to enable methods chaining.</returns>
-    public static IServiceCollection AddRavenSMS(this IServiceCollection services, Action<RavenSmsBuilder> config)
-    {
-        // load the configuration
-        var builderOptions = new RavenSmsBuilder(services);
-        config(builderOptions);
-
-        // build and validate the options
-        var options = builderOptions.InitOptions();
-        options.Validate();
-
-        services.AddScoped((s) => options);
-        services.ConfigureOptions(typeof(RavenSmsUIConfigureOptions));
-                
-        services.AddScoped<IRavenSmsManager, RavenSmsManager>();
-        services.AddScoped<IRavenSmsClientsManager, RavenSmsClientsManager>();
-        services.AddScoped<IRavenSmsMessagesManager, RavenSmsMessagesManager>();
-                
-        services.AddScoped<IRavenSmsService, RavenSmsService>();
-
-        return services;
-    }
+    /// <returns>instance of <see cref="RavenSmsBuilder"/> to enable methods chaining.</returns>
+    public static RavenSmsBuilder AddRavenSMS(this IServiceCollection services, Action<RavenSmsBuilder> config) 
+        => RavenSmsBuilder.InitBuilder(services, config)
+            .RegisterOptions()
+            .RegisterManagers()
+            .RegisterServices();
 
     /// <summary>
     /// Maps incoming requests with the ravenSMS hub path to the <see cref="RavenSmsHub"/>
@@ -68,6 +52,39 @@ public static class Configurations
         builder.ServiceCollection.AddSingleton<IInMemoryQueue, InMemoryQueue>();
         builder.ServiceCollection.AddHostedService<InMemoryQueueHost>();
 
+        return builder;
+    }
+
+    /// <summary>
+    /// register options
+    /// </summary>
+    /// <param name="builder">the <see cref="RavenSmsBuilder"/> instance</param>
+    internal static RavenSmsBuilder RegisterOptions(this RavenSmsBuilder builder)
+    {
+        builder.ServiceCollection.ConfigureOptions(typeof(RavenSmsUIConfigureOptions));
+        builder.ServiceCollection.Configure<RavenSmsOptions>(o => Options.Create(builder.InitOptions()));
+        return builder;
+    }
+
+    /// <summary>
+    /// register managers
+    /// </summary>
+    /// <param name="builder">the <see cref="RavenSmsBuilder"/> instance</param>
+    internal static RavenSmsBuilder RegisterManagers(this RavenSmsBuilder builder)
+    {
+        builder.ServiceCollection.AddScoped<IRavenSmsManager, RavenSmsManager>();
+        builder.ServiceCollection.AddScoped<IRavenSmsClientsManager, RavenSmsClientsManager>();
+        builder.ServiceCollection.AddScoped<IRavenSmsMessagesManager, RavenSmsMessagesManager>();
+        return builder;
+    }
+
+    /// <summary>
+    /// register services
+    /// </summary>
+    /// <param name="builder">the <see cref="RavenSmsBuilder"/> instance</param>
+    internal static RavenSmsBuilder RegisterServices(this RavenSmsBuilder builder)
+    {
+        builder.ServiceCollection.AddScoped<IRavenSmsService, RavenSmsService>();
         return builder;
     }
 }

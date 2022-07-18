@@ -10,13 +10,13 @@ public class BasePageModel : PageModel
     protected readonly ILogger _logger;
 
     public BasePageModel(
-        RavenSmsOptions options,
-        IStringLocalizer localizer, 
-        ILogger logger)
+        ILogger logger,
+        IStringLocalizer localizer,
+        IOptions<RavenSmsOptions> options)
     {
         _logger = logger;
-        _options = options;
         _localizer = localizer;
+        _options = options.Value;
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public class BasePageModel : PageModel
     /// <summary>
     /// Get the RavenSMS server info.
     /// </summary>
-    public RavenSmsServerInfo RavenSmsServerInfo => _options.ServerInfo;
+    public RavenSmsOptions RavenSmsServerInfo => _options;
 
     /// <summary>
     /// the server url
@@ -57,7 +57,7 @@ public class BasePageModel : PageModel
         {
             clientId = client.Id,
             serverUrl = ServerUrl,
-            serverId = _options.ServerInfo.ServerId,
+            serverId = _options.ServerId,
         });
 
         // convert the json model to a base64 string

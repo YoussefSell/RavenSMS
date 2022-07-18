@@ -98,10 +98,10 @@ public partial class ClientsAddPageModel : BasePageModel
 
     public ClientsAddPageModel(
         IRavenSmsClientsManager clientsManager,
-        RavenSmsOptions options,
-        IStringLocalizer<MessagesAddPageModel> localizer,
-        ILogger<MessagesAddPageModel> logger)
-        : base(options, localizer, logger)
+        IOptions<RavenSmsOptions> options,
+        ILogger<MessagesAddPageModel> logger, 
+        IStringLocalizer<MessagesAddPageModel> localizer)
+        : base(logger, localizer, options)
     {
         _clientsManager = clientsManager;
         Input = new ClientsAddPageModelInput();

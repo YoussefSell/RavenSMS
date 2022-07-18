@@ -16,10 +16,10 @@ public partial class PreferencesIndexPageModel : BasePageModel
 
     public PreferencesIndexPageModel(
         IRavenSmsManager ravenSmsManager,
-        RavenSmsOptions options,
-        IStringLocalizer<PreferencesIndexPageModel> localizer,
-        ILogger<PreferencesIndexPageModel> logger)
-        : base(options, localizer, logger)
+        IOptions<RavenSmsOptions> options,
+        ILogger<MessagesAddPageModel> logger,
+        IStringLocalizer<MessagesAddPageModel> localizer)
+        : base(logger, localizer, options)
     {
         _manager = ravenSmsManager;
     }

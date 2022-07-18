@@ -72,10 +72,10 @@ public partial class MessagesPreviewPageModel : BasePageModel
     public MessagesPreviewPageModel(
         IRavenSmsManager manager,
         IRavenSmsMessagesManager ravenSmsManager,
-        RavenSmsOptions options,
-        IStringLocalizer<MessagesAddPageModel> localizer,
-        ILogger<MessagesAddPageModel> logger)
-        : base(options, localizer, logger)
+        IOptions<RavenSmsOptions> options,
+        ILogger<MessagesAddPageModel> logger,
+        IStringLocalizer<MessagesAddPageModel> localizer)
+        : base(logger, localizer, options)
     {
         _manager = manager;
         _messagesManager = ravenSmsManager;

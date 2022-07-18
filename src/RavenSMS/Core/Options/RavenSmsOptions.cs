@@ -6,25 +6,12 @@
 public class RavenSmsOptions
 {
     /// <summary>
-    /// Get or set RavenSMS server info.
+    /// the id of the server
     /// </summary>
-    public RavenSmsServerInfo ServerInfo { get; set; } = default!;
+    public string ServerId { get; internal set; } = default!;
 
     /// <summary>
-    /// validate if the options are all set correctly
+    /// the name of the server
     /// </summary>
-    public void Validate()
-    {
-        if (ServerInfo is null)
-            throw new RavenSmsOptionValueNotSpecifiedException(
-                    $"{nameof(ServerInfo)}", "the given RavenSmsDeliveryChannelOptions.ServerInfo value is null or empty.");
-
-        if (string.IsNullOrEmpty(ServerInfo.ServerId))
-            throw new RavenSmsOptionValueNotSpecifiedException(
-                    $"ServerInfo.ServerId", "the given RavenSmsDeliveryChannelOptions.ServerInfo.ServerId value is null or empty.");
-
-        if (string.IsNullOrEmpty(ServerInfo.ServerName))
-            throw new RavenSmsOptionValueNotSpecifiedException(
-                    $"ServerInfo.ServerName", "the given RavenSmsDeliveryChannelOptions.ServerInfo.ServerName value is null or empty.");
-    }
+    public string ServerName { get; internal set; } = default!;
 }

@@ -53,10 +53,10 @@ public partial class ClientSetupPageModel : BasePageModel
 
     public ClientSetupPageModel(
         IRavenSmsClientsManager ravenSmsManager,
-        RavenSmsOptions options,
-        IStringLocalizer<ClientSetupPageModel> localizer,
-        ILogger<ClientSetupPageModel> logger)
-        : base(options, localizer, logger)
+        IOptions<RavenSmsOptions> options,
+        ILogger<MessagesAddPageModel> logger,
+        IStringLocalizer<MessagesAddPageModel> localizer)
+        : base(logger, localizer, options)
     {
         _manager = ravenSmsManager;
     }

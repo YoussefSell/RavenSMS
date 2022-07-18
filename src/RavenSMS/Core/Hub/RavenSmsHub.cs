@@ -3,19 +3,19 @@
 public class RavenSmsHub : Hub
 {
     private readonly ILogger _logger;
-    private readonly IRavenSmsClientsManager _clientsManager;
     private readonly RavenSmsOptions _options;
+    private readonly IRavenSmsClientsManager _clientsManager;
     private readonly IRavenSmsMessagesManager _messagesManager;
 
     public RavenSmsHub(
-        RavenSmsOptions options,
-        IRavenSmsMessagesManager messagesManager,
+        ILogger<RavenSmsHub> logger,
         IRavenSmsClientsManager manager,
-        ILogger<RavenSmsHub> logger)
+        IOptions<RavenSmsOptions> options,
+        IRavenSmsMessagesManager messagesManager)
     {
         _logger = logger;
+        _options = options.Value;
         _clientsManager = manager;
-        _options = options;
         _messagesManager = messagesManager;
     }
 
@@ -70,8 +70,8 @@ public class RavenSmsHub : Hub
             clientName = client.Name,
             clientDescription = client.Description,
             clientPhoneNumber = client.PhoneNumber,
-            serverId = _options.ServerInfo.ServerId,
-            serverName = _options.ServerInfo.ServerName,
+            serverId = _options.ServerId,
+            serverName = _options.ServerName,
         });
     }
 
@@ -124,7 +124,7 @@ public class RavenSmsHub : Hub
                 to = message.To.ToString(),
                 createdOn = message.CreateOn,
                 deliverAt = message.DeliverAt,
-                serverId = _options.ServerInfo.ServerId,
+                serverId = _options.ServerId,
             }));
     }
 }

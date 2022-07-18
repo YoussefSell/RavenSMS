@@ -1,10 +1,10 @@
-﻿namespace Microsoft.Extensions.DependencyInjection;
+﻿namespace RavenSMS;
 
 internal class RavenSmsUIConfigureOptions : IPostConfigureOptions<StaticFileOptions>
 {
     private readonly IWebHostEnvironment _environment;
 
-    public RavenSmsUIConfigureOptions(IWebHostEnvironment environment) 
+    public RavenSmsUIConfigureOptions(IWebHostEnvironment environment)
         => _environment = environment;
 
     public void PostConfigure(string name, StaticFileOptions options)
@@ -21,7 +21,7 @@ internal class RavenSmsUIConfigureOptions : IPostConfigureOptions<StaticFileOpti
 
         // add the file provider to load the package assets
         options.FileProvider = new CompositeFileProvider(
-            options.FileProvider, 
+            options.FileProvider,
             new ManifestEmbeddedFileProvider(GetType().Assembly, "Assets"));
     }
 }
