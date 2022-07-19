@@ -43,7 +43,11 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-list #scheduleList [hidden]="_filteredServers.length === 0">
+    <ion-list
+      style="min-height: 100%"
+      #scheduleList
+      [hidden]="_filteredServers.length === 0"
+    >
       <ion-item-group *ngFor="let server of _filteredServers">
         <ion-card>
           <ion-card-header>
