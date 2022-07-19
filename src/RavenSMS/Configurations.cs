@@ -59,8 +59,8 @@ public static class Configurations
     /// <param name="builder">the <see cref="RavenSmsBuilder"/> instance</param>
     internal static RavenSmsBuilder RegisterOptions(this RavenSmsBuilder builder)
     {
+        builder.ServiceCollection.Configure<RavenSmsOptions>(builder.InitOptions);
         builder.ServiceCollection.ConfigureOptions(typeof(RavenSmsUIConfigureOptions));
-        builder.ServiceCollection.Configure<RavenSmsOptions>(o => Options.Options.Create(builder.InitOptions()));
         return builder;
     }
 

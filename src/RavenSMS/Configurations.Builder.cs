@@ -50,13 +50,10 @@ public class RavenSmsBuilder
     /// <summary>
     /// set the options values
     /// </summary>
-    internal RavenSmsOptions InitOptions()
+    internal void InitOptions(RavenSmsOptions options)
     {
-        return new RavenSmsOptions
-        {
-            ServerId = _serverId,
-            ServerName = _serverName,
-        };
+        options.ServerId = _serverId;
+        options.ServerName = _serverName;
     }
 
     /// <summary>
