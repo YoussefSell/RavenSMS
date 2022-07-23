@@ -204,6 +204,9 @@ export class ServersConnectivityService {
             ...message,
             serverId,
             sentOn: new Date(),
+            deliverAt: isSuccess
+                ? new Date()
+                : null,
             status: isSuccess
                 ? MessageStatus.Sent
                 : MessageStatus.Failed,

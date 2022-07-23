@@ -76,12 +76,13 @@ public partial class RavenSmsMessagesManager
         var attempt = new RavenSmsMessageSendAttempt { Status = SendAttemptStatus.Sent };
 
         message.Status = status;
-        message.DeliverAt = null;
         message.SentOn = DateTimeOffset.UtcNow;
+        message.DeliverAt = DateTimeOffset.UtcNow;
         message.SendAttempts.Add(attempt);
 
         if (status == RavenSmsMessageStatus.Failed)
         {
+            message.DeliverAt = null;
             attempt.Status = SendAttemptStatus.Failed;
             attempt.AddError(error, error.Equals(SmsErrorCodes.SmsPermissionDenied)
                 ? "failed to send the sms message, you need to give the app the permission to send sms message, go to the app settings and check the sms permission"
