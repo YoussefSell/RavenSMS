@@ -42,12 +42,12 @@ export class SetupPage {
     // this code is only relevant if we are not previewing in a web browser
     if (this.platform != 'web') {
       // first check for the user permission
-      this.messageTranslationKey = 'servers.pages.setup.messages.checking_permission';
+      this.messageTranslationKey = 'servers.pages.setup.servers.checking_permission';
 
       this.permissionGranted = await this.checkUserPermission();
       if (this.permissionGranted) {
         this.showGrantPermissionButton = false;
-        this.messageTranslationKey = 'servers.pages.setup.messages.ready_for_scan';
+        this.messageTranslationKey = 'servers.pages.setup.servers.ready_for_scan';
 
         // prepare the barcode scanner
         BarcodeScanner.prepare();
