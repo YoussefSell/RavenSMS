@@ -13,7 +13,6 @@ import { Component } from '@angular/core';
           <ion-icon name="mail"></ion-icon>
           <ion-label>{{translate('tabs.messages')}}</ion-label>
         </ion-tab-button>
-        <ion-tab-button></ion-tab-button>
         <ion-tab-button tab="preferences">
           <ion-icon name="settings"></ion-icon>
           <ion-label>{{translate('tabs.preferences')}}</ion-label>
@@ -24,11 +23,7 @@ import { Component } from '@angular/core';
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-      <ion-fab-button routerLink="/app/tabs/servers/setup">
-          <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    
   </ng-container>
   `,
   styles: [

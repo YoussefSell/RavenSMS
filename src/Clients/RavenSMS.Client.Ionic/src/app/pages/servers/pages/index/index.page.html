@@ -114,5 +114,11 @@
     <ion-list-header [hidden]="_filteredServers.length > 0">
       {{translate('servers.pages.index.labels.empty_page')}}
     </ion-list-header>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink="/app/tabs/servers/setup">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </ion-content>
 </ng-container>
