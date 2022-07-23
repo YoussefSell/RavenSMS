@@ -10,10 +10,6 @@ public partial class RavenSmsClientsManager
         => _clientsStore.GetCountAsync(cancellationToken);
     
     /// <inheritdoc/>
-    public Task<RavenSmsClient[]> GetAllClientsAsync(CancellationToken cancellationToken = default)
-        => _clientsStore.GetAllAsync(cancellationToken);
-
-    /// <inheritdoc/>
     public Task<(RavenSmsClient[] clients, int rowsCount)> GetAllClientsAsync(RavenSmsClientsFilter filter, CancellationToken cancellationToken = default)
         => _clientsStore.GetAllAsync(filter, cancellationToken);
     
@@ -27,10 +23,6 @@ public partial class RavenSmsClientsManager
 
         return clients.clients;
     }
-
-    /// <inheritdoc/>
-    public Task<bool> AnyClientByIdAsync(string clientId, CancellationToken cancellationToken = default)
-        => _clientsStore.AnyByIdAsync(clientId, cancellationToken);
 
     /// <inheritdoc/>
     public Task<bool> AnyClientByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken = default)

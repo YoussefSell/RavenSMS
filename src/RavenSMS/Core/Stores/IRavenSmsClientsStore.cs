@@ -14,14 +14,6 @@ public interface IRavenSmsClientsStore
     Task<long> GetCountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// get the list of all clients.
-    /// </summary>
-    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
-    /// <returns>a list of all clients.</returns>
-    /// <exception cref="OperationCanceledException">If the System.Threading.CancellationToken is canceled.</exception>
-    Task<RavenSmsClient[]> GetAllAsync(CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// get the list of clients using a filter with total count of all entities that matches the filter for pagination.
     /// </summary>
     /// <param name="filter">the filter used to retrieve the clients.</param>

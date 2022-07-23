@@ -42,6 +42,11 @@ public class RavenSmsMessage
     public Priority Priority { get; set; }
 
     /// <summary>
+    /// Get or set the status of the message
+    /// </summary>
+    public RavenSmsMessageStatus Status { get; set; }
+
+    /// <summary>
     /// Get or set the message body.
     /// </summary>
     public string Body { get; set; } = default!;
@@ -55,11 +60,6 @@ public class RavenSmsMessage
     /// Get or set the id of the queue job associated with this message.
     /// </summary>
     public string? JobQueueId { get; set; }
-
-    /// <summary>
-    /// Get or set the status of the message
-    /// </summary>
-    public RavenSmsMessageStatus Status { get; set; }
 
     /// <summary>
     /// Get or set the id of the client used to send this message.

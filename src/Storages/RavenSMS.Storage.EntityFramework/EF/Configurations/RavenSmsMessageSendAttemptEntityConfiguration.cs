@@ -5,7 +5,7 @@
 /// </summary>
 public class RavenSmsMessageSendAttemptEntityConfiguration : IEntityTypeConfiguration<RavenSmsMessageSendAttempt>
 {
-    readonly ValueComparer valueComparer = new ValueComparer<ICollection<RavenSmsMessageSendAttemptError>>(
+    readonly ValueComparer _valueComparer = new ValueComparer<ICollection<RavenSmsMessageSendAttemptError>>(
         (c1, c2) => c1!.SequenceEqual(c2!),
         c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
         c => c.ToList());
@@ -14,6 +14,9 @@ public class RavenSmsMessageSendAttemptEntityConfiguration : IEntityTypeConfigur
     public void Configure(EntityTypeBuilder<RavenSmsMessageSendAttempt> builder)
     {
         builder.Property(e => e.Id)
+            .HasMaxLength(17);
+
+        builder.Property(e => e.MessageId)
             .HasMaxLength(17);
 
         builder.Property(e => e.Status)
@@ -28,7 +31,7 @@ public class RavenSmsMessageSendAttemptEntityConfiguration : IEntityTypeConfigur
                     ?? new List<RavenSmsMessageSendAttemptError>()
             )
             .HasMaxLength(4000)
-            .Metadata.SetValueComparer(valueComparer);
+            .Metadata.SetValueComparer(_valueComparer);
 
         builder.HasOne<RavenSmsMessage>()
             .WithMany(e => e.SendAttempts)
