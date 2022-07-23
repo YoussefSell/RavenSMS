@@ -6,6 +6,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+builder.Services.AddDbContext<ApplicationDbContext>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("capacitor-cors",
@@ -44,7 +46,7 @@ builder.Services
     .AddRavenSMS(config =>
     {
         config.UseCoravelQueue();
-        config.UseInMemoryStores();
+        config.UseEntityFrameworkStores<ApplicationDbContext>();
     });
 
 var app = builder.Build();

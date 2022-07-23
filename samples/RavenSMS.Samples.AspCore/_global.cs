@@ -1,5 +1,7 @@
-﻿global using Microsoft.EntityFrameworkCore;
+﻿global using Coravel;
 global using Hangfire;
-global using RavenSMS.Events;
-global using Coravel;
+global using Microsoft.EntityFrameworkCore;
 global using RavenSMS;
+global using RavenSMS.Events;
+global using RavenSMS.Models;
+global using RavenSMS.Stores.EntityFramework;
