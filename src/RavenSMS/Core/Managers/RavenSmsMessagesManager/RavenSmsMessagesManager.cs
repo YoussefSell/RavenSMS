@@ -65,6 +65,39 @@ public partial class RavenSmsMessagesManager
 
         return await _messagesStore.DeleteAsync(message, cancellationToken);
     }
+
+    /// <inheritdoc/>
+    public async Task UpdateMessageDeliveryStatusAsync(string messageId, RavenSmsMessageStatus status, string error)
+    {
+        var message = await FindByIdAsync(messageId);
+        if (message is null)
+            return;
+
+        var attempt = new RavenSmsMessageSendAttempt { Status = SendAttemptStatus.Sent };
+
+        message.Status = status;
+        message.DeliverAt = null;
+        message.SentOn = DateTimeOffset.UtcNow;
+        message.SendAttempts.Add(attempt);
+
+        if (status == RavenSmsMessageStatus.Failed)
+        {
+            attempt.Status = SendAttemptStatus.Failed;
+            attempt.AddError(error, error.Equals(SmsErrorCodes.SmsPermissionDenied)
+                ? "failed to send the sms message, you need to give the app the permission to send sms message, go to the app settings and check the sms permission"
+                : "failed to send the sms message, check that your phone has a SIM card with credits to send the messages");
+        }
+
+        var result = await SaveAsync(message);
+        if (result.IsSuccess())
+        {
+            if (message.Status == RavenSmsMessageStatus.Sent)
+                _eventsPublisher.Publish(new MessageSentEvent(messageId));
+
+            if (message.Status == RavenSmsMessageStatus.Failed)
+                _eventsPublisher.Publish(new MessageUnsentEvent(messageId));
+        }
+    }
 }
 
 /// <summary>
@@ -72,10 +105,14 @@ public partial class RavenSmsMessagesManager
 /// </summary>
 public partial class RavenSmsMessagesManager : IRavenSmsMessagesManager
 {
+    private readonly EventsPublisher _eventsPublisher;
     private readonly IRavenSmsMessagesStore _messagesStore;
 
-    public RavenSmsMessagesManager(IRavenSmsMessagesStore messagesRepository)
+    public RavenSmsMessagesManager(
+        EventsPublisher eventsPublisher,
+        IRavenSmsMessagesStore messagesRepository)
     {
+        _eventsPublisher = eventsPublisher;
         _messagesStore = messagesRepository;
     }
 }

@@ -6,27 +6,29 @@
 public partial class HangfireQueueManager : IQueueManager
 {
     /// <inheritdoc/>
-    public Task<string> QueueMessageAsync(RavenSmsMessage message, CancellationToken cancellationToken = default)
+    public string QueueEvent<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : IEvent
     {
         if (cancellationToken.IsCancellationRequested)
             cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(BackgroundJob.Enqueue<IRavenSmsManager>(manager => manager.ProcessAsync(message.Id, default)));
+        return BackgroundJob.Enqueue<EventsPublisher>(publisher => publisher.ProcessAsync(@event));
     }
 
     /// <inheritdoc/>
-    public Task<string> QueueMessageAsync(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
+    public string QueueMessage(RavenSmsMessage message, CancellationToken cancellationToken = default)
     {
         if (cancellationToken.IsCancellationRequested)
             cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(BackgroundJob.Schedule<IRavenSmsManager>(manager => manager.ProcessAsync(message.Id, default), delay));
+        return BackgroundJob.Enqueue<IRavenSmsManager>(manager => manager.ProcessAsync(message.Id, default));
     }
-}
 
-/// <summary>
-/// partial part for <see cref="HangfireQueueManager"/>
-/// </summary>
-public partial class HangfireQueueManager
-{
+    /// <inheritdoc/>
+    public string QueueMessage(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
+    {
+        if (cancellationToken.IsCancellationRequested)
+            cancellationToken.ThrowIfCancellationRequested();
+
+        return BackgroundJob.Schedule<IRavenSmsManager>(manager => manager.ProcessAsync(message.Id, default), delay);
+    }
 }

@@ -10,7 +10,7 @@ public static partial class Program
         var options = new MySqlStorageOptions
         {
             TransactionIsolationLevel = IsolationLevel.ReadCommitted,
-            QueuePollInterval = TimeSpan.FromSeconds(15),
+            QueuePollInterval = TimeSpan.FromMilliseconds(100),
             JobExpirationCheckInterval = TimeSpan.FromHours(1),
             CountersAggregateInterval = TimeSpan.FromMinutes(5),
             PrepareSchemaIfNecessary = true,

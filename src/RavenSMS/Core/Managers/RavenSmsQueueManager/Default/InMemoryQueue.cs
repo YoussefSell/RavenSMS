@@ -20,7 +20,31 @@ public partial class InMemoryQueue : IInMemoryQueue
     }
 
     /// <inheritdoc/>
-    public string Enqueue(string messageId, TimeSpan? delay = null)
+    public string EnqueueEvent<TEvent>(TEvent @event) where TEvent : IEvent
+    {
+        // create the job
+        var job = new InMemoryJob(async () =>
+        {
+            // create the service scope
+            using var scope = _scopeFactory.CreateScope();
+
+            // get the event publisher to process the event
+            var publisher = scope.ServiceProvider.GetService<EventsPublisher>();
+            if (publisher is null)
+                throw new RavenSmsException($"RavenSMS is not registered add AddRavenSMS() to your service collection");
+
+            // process the message
+            await publisher.ProcessAsync(@event);
+        });
+
+        // queue the job
+        _tasks.Enqueue(job);
+
+        return job.Id.ToString();
+    }
+
+    /// <inheritdoc/>
+    public string EnqueueMessage(string messageId, TimeSpan? delay = null)
     {
         // create the job
         var job = new InMemoryJob(async () =>
@@ -35,7 +59,7 @@ public partial class InMemoryQueue : IInMemoryQueue
             // get the manager to process the message
             var manager = scope.ServiceProvider.GetService<IRavenSmsManager>();
             if (manager is null)
-                throw new RavenSmsException($"try to register RavenSMS with AddSMSNet().UseRavenSMS().");
+                throw new RavenSmsException($"RavenSMS is not registered add AddRavenSMS() to your service collection");
 
             // process the message
             await manager.ProcessAsync(messageId);

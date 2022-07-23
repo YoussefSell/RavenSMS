@@ -14,7 +14,7 @@ public interface IQueueManager
     /// A task that represents the asynchronous operation. The task result contains the if the background job Id generated the by the underlying queue manager.
     ///  </returns>
     /// <exception cref="OperationCanceledException">If the System.Threading.CancellationToken is canceled.</exception>
-    Task<string> QueueMessageAsync(RavenSmsMessage message, CancellationToken cancellationToken = default);
+    string QueueMessage(RavenSmsMessage message, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// queue the message for processing with a delay
@@ -26,5 +26,17 @@ public interface IQueueManager
     /// A task that represents the asynchronous operation. The task result contains the if the background job Id generated the by the underlying queue manager.
     ///  </returns>
     /// <exception cref="OperationCanceledException">If the System.Threading.CancellationToken is canceled.</exception>
-    Task<string> QueueMessageAsync(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default);
+    string QueueMessage(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// queue the event for processing
+    /// </summary>
+    /// <typeparam name="TEvent">the event type</typeparam>
+    /// <param name="event">the event instance</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the if the background job Id generated the by the underlying queue manager.
+    ///  </returns>
+    /// <exception cref="OperationCanceledException">If the System.Threading.CancellationToken is canceled.</exception>
+    string QueueEvent<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : IEvent;
 }

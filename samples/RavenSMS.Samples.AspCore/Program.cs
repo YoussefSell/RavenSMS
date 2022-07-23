@@ -8,7 +8,7 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ionic-cors",
+    options.AddPolicy("capacitor-cors",
         builder => builder.WithOrigins(
             "http://localhost",
             "ionic://localhost",
@@ -34,13 +34,17 @@ builder.Services.AddHangfire(configuration => configuration
 builder.Services.AddHangfireServer();
 builder.Services.AddQueue();
 
+builder.Services.AddSingleton<IEventHandler<MessageSentEvent>, MessageEventHandler>();
+builder.Services.AddSingleton<IEventHandler<MessageUnsentEvent>, MessageEventHandler>();
+builder.Services.AddSingleton<IEventHandler<ClientConnectedEvent>, ClientConnectedEventHandler>();
+builder.Services.AddSingleton<IEventHandler<ClientDisconnectedEvent>, ClientDisconnectedEventHandler>();
+
 // add SMS.Net services
 builder.Services
     .AddRavenSMS(config =>
     {
-        config.UseInMemoryQueue();
+        config.UseCoravelQueue();
         config.UseInMemoryStores();
-        config.SetServerId("srv_defaultserver");
     });
 
 var app = builder.Build();
@@ -49,7 +53,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -57,7 +60,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseCors("ionic-cors");
+app.UseCors("capacitor-cors");
 
 app.UseAuthorization();
 

@@ -11,10 +11,15 @@ public partial class InMemoryQueueManager : IQueueManager
         => _queue = queue;
 
     /// <inheritdoc/>
-    public Task<string> QueueMessageAsync(RavenSmsMessage message, CancellationToken cancellationToken = default) =>
-        Task.FromResult(_queue.Enqueue(message.Id));
+    public string QueueEvent<TEvent>(TEvent @event, CancellationToken cancellationToken = default)
+        where TEvent : IEvent
+        => _queue.EnqueueEvent(@event);
 
     /// <inheritdoc/>
-    public Task<string> QueueMessageAsync(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
-        => Task.FromResult(_queue.Enqueue(message.Id, delay));
+    public string QueueMessage(RavenSmsMessage message, CancellationToken cancellationToken = default) 
+        => _queue.EnqueueMessage(message.Id);
+
+    /// <inheritdoc/>
+    public string QueueMessage(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
+        => _queue.EnqueueMessage(message.Id, delay);
 }

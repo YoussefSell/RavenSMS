@@ -6,29 +6,42 @@
 public partial class CoravelQueueManager : IQueueManager
 {
     /// <inheritdoc/>
-    public Task<string> QueueMessageAsync(RavenSmsMessage message, CancellationToken cancellationToken = default)
+    public string QueueEvent<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : IEvent
     {
         if (cancellationToken.IsCancellationRequested)
             cancellationToken.ThrowIfCancellationRequested();
 
         var queueId = _queue
-            .QueueInvocableWithPayload<RavenSmsProcessSmsMessageInvocable, InvocablePayload>(
-                InvocablePayload.Create(message.Id));
+            .QueueInvocableWithPayload<ProcessEventInvocable<TEvent>, ProcessEventInvocablePayload<TEvent>>(
+                ProcessEventInvocablePayload<TEvent>.Create(@event));
 
-        return Task.FromResult(queueId.ToString());
+        return queueId.ToString();
     }
 
     /// <inheritdoc/>
-    public Task<string> QueueMessageAsync(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
+    public string QueueMessage(RavenSmsMessage message, CancellationToken cancellationToken = default)
     {
         if (cancellationToken.IsCancellationRequested)
             cancellationToken.ThrowIfCancellationRequested();
 
         var queueId = _queue
-            .QueueInvocableWithPayload<RavenSmsProcessSmsMessageInvocable, InvocablePayload>(
-                InvocablePayload.Create(message.Id, delay));
+            .QueueInvocableWithPayload<ProcessSmsMessageInvocable, ProcessSmsMessageInvocablePayload>(
+                ProcessSmsMessageInvocablePayload.Create(message.Id));
 
-        return Task.FromResult(queueId.ToString());
+        return queueId.ToString();
+    }
+
+    /// <inheritdoc/>
+    public string QueueMessage(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
+    {
+        if (cancellationToken.IsCancellationRequested)
+            cancellationToken.ThrowIfCancellationRequested();
+
+        var queueId = _queue
+            .QueueInvocableWithPayload<ProcessSmsMessageInvocable, ProcessSmsMessageInvocablePayload>(
+                ProcessSmsMessageInvocablePayload.Create(message.Id, delay));
+
+        return queueId.ToString();
     }
 }
 

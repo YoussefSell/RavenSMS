@@ -1,19 +1,19 @@
 ﻿namespace RavenSMS.Internal.Managers;
 
+/// <summary>
+/// the websocket hub for managing the connection between the server and the client
+/// </summary>
 public class RavenSmsWebSocketManager : Hub
 {
-    private readonly ILogger _logger;
     private readonly RavenSmsOptions _options;
     private readonly IRavenSmsClientsManager _clientsManager;
     private readonly IRavenSmsMessagesManager _messagesManager;
 
     public RavenSmsWebSocketManager(
-        ILogger<RavenSmsWebSocketManager> logger,
         IRavenSmsClientsManager manager,
         IOptions<RavenSmsOptions> options,
         IRavenSmsMessagesManager messagesManager)
     {
-        _logger = logger;
         _options = options.Value;
         _clientsManager = manager;
         _messagesManager = messagesManager;
@@ -23,15 +23,50 @@ public class RavenSmsWebSocketManager : Hub
     {
         // send an event to the client app to indicate that the connection has been established
         // because we don't have a way to get this info from the client app
-        _logger.LogInformation("client associated with connection Id: {connectionId}, has connected", Context.ConnectionId);
         await Clients.Caller.SendAsync("ClientConnected");
     }
 
-    public override async Task OnDisconnectedAsync(Exception? exception)
+    public override async Task OnDisconnectedAsync(Exception? exception) 
+        => await _clientsManager.ClientDisconnectedAsync(Context.ConnectionId);
+
+    public async Task PersistClientConnectionAsync(string clientId, bool forceConnection)
     {
-        // disconnecting the client
-        _logger.LogInformation("client associated with connection Id: {connectionId}, has been disconnected", Context.ConnectionId);
-        await _clientsManager.ClientDisconnectedAsync(Context.ConnectionId);
+        // get the client associated with the given id
+        var client = await _clientsManager.FindClientByIdAsync(clientId);
+        if (client is null)
+        {
+            await Clients.Caller.SendAsync("forceDisconnect", DisconnectionReason.ClientNotFound);
+            return;
+        }
+
+        // check if the client already connected
+        if (client.Status == RavenSmsClientStatus.Connected)
+        {
+            // check if the client is already connected
+            if (client.ConnectionId == Context.ConnectionId)
+                return;
+
+            // new connection, check if we need to force the connection, or not
+            if (!forceConnection)
+            {
+                await Clients.Caller.SendAsync("forceDisconnect", DisconnectionReason.ClientAlreadyConnected);
+                return;
+            }
+        }
+
+        // attach the client to the current connection
+        await _clientsManager.ClientConnectedAsync(client, Context.ConnectionId);
+
+        // send the command to update the client info
+        await Clients.Caller.SendAsync("updateClientInfo", new
+        {
+            clientId = client.Id,
+            clientName = client.Name,
+            clientDescription = client.Description,
+            clientPhoneNumber = client.PhoneNumber,
+            serverId = _options.ServerId,
+            serverName = _options.ServerName,
+        });
     }
 
     public async Task LoadClientMessagesAsync(string clientId)
@@ -63,70 +98,8 @@ public class RavenSmsWebSocketManager : Hub
             }));
     }
 
-    public async Task PersistClientConnectionAsync(string clientId, bool forceConnection)
-    {
-        // get the client associated with the given id
-        var client = await _clientsManager.FindClientByIdAsync(clientId);
-        if (client is null)
-        {
-            await Clients.Caller.SendAsync("forceDisconnect", DisconnectionReason.ClientNotFound);
-            return;
-        }
-
-        // check if the client already connected
-        if (client.Status == RavenSmsClientStatus.Connected)
-        {
-            // check if the client is already connected
-            if (client.ConnectionId == Context.ConnectionId)
-                return;
-
-            // new connection, check if we need to force the connection, or not
-            if (!forceConnection)
-            {
-                await Clients.Caller.SendAsync("forceDisconnect", DisconnectionReason.ClientAlreadyConnected);
-                return;
-            }
-        }
-
-        // attach the client to the current connection
-        _logger.LogInformation("connecting client with Id: {clientId}, connection Id: {connectionId}", client.Id, Context.ConnectionId);
-        await _clientsManager.ClientConnectedAsync(client, Context.ConnectionId);
-
-        // send the command to update the client info
-        await Clients.Caller.SendAsync("updateClientInfo", new
-        {
-            clientId = client.Id,
-            clientName = client.Name,
-            clientDescription = client.Description,
-            clientPhoneNumber = client.PhoneNumber,
-            serverId = _options.ServerId,
-            serverName = _options.ServerName,
-        });
-    }
-
-    public async Task UpdateMessageStatusAsync(string messageId, RavenSmsMessageStatus status, string error)
-    {
-        var message = await _messagesManager.FindByIdAsync(messageId);
-        if (message is null)
-            return;
-
-        var attempt = new RavenSmsMessageSendAttempt { Status = SendAttemptStatus.Sent };
-
-        message.Status = status;
-        message.DeliverAt = null;
-        message.SentOn = DateTimeOffset.UtcNow;
-        message.SendAttempts.Add(attempt);
-
-        if (status == RavenSmsMessageStatus.Failed)
-        {
-            attempt.Status = SendAttemptStatus.Failed;
-            attempt.AddError(error, error.Equals(SmsErrorCodes.SmsPermissionDenied)
-                ? "failed to send the sms message, you need to give the app the permission to send sms message, go to the app settings and check the sms permission"
-                : "failed to send the sms message, check that your phone has a SIM card with credits to send the messages");
-        }
-
-        await _messagesManager.SaveAsync(message);
-    }
+    public Task UpdateMessageStatusAsync(string messageId, RavenSmsMessageStatus status, string error)
+        => _messagesManager.UpdateMessageDeliveryStatusAsync(messageId, status, error);
 }
 
 public static class RavenSmsHubExtensions

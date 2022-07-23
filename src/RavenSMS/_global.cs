@@ -26,3 +26,4 @@ global using RavenSMS.Stores;
 global using ResultNet;
 global using System.Collections.Concurrent;
 global using System.ComponentModel.DataAnnotations;
+global using RavenSMS.Events;

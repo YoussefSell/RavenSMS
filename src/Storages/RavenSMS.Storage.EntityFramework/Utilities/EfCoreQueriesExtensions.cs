@@ -51,4 +51,3 @@ internal static class EfCoreQueriesExtensions
         return orderQueury;
     }
 }
-

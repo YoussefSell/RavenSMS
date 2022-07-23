@@ -17,7 +17,6 @@ public static class Configurations
     public static RavenSmsBuilder UseHangfireQueue(this RavenSmsBuilder builder)
     {
         builder.ServiceCollection.AddScoped<IQueueManager, HangfireQueueManager>();
-
         return builder;
     }
 }

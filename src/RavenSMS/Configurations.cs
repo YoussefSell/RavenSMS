@@ -11,11 +11,12 @@ public static class Configurations
     /// <param name="services">the SMS.Net builder instance.</param>
     /// <param name="config">the configuration builder instance.</param>
     /// <returns>instance of <see cref="RavenSmsBuilder"/> to enable methods chaining.</returns>
-    public static RavenSmsBuilder AddRavenSMS(this IServiceCollection services, Action<RavenSmsBuilder> config) 
+    public static RavenSmsBuilder AddRavenSMS(this IServiceCollection services, Action<RavenSmsBuilder> config)
         => RavenSmsBuilder.InitBuilder(services, config)
             .RegisterOptions()
             .RegisterManagers()
-            .RegisterServices();
+            .RegisterServices()
+            .RegisterEvents();
 
     /// <summary>
     /// Maps incoming requests with the ravenSMS hub path to the <see cref="RavenSmsWebSocketManager"/>
@@ -83,6 +84,16 @@ public static class Configurations
     internal static RavenSmsBuilder RegisterServices(this RavenSmsBuilder builder)
     {
         builder.ServiceCollection.AddScoped<IRavenSmsService, RavenSmsService>();
+        return builder;
+    }
+
+    /// <summary>
+    /// register services
+    /// </summary>
+    /// <param name="builder">the <see cref="RavenSmsBuilder"/> instance</param>
+    internal static RavenSmsBuilder RegisterEvents(this RavenSmsBuilder builder)
+    {
+        builder.ServiceCollection.AddScoped<EventsPublisher>();
         return builder;
     }
 }

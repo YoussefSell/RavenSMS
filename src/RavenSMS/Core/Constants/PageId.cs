@@ -15,7 +15,7 @@ internal static class PageId
     public const string ClientAddPage       = "clients.add";
     public const string ClientIndexPage     = "clients.index";
     public const string ClientSetupPage     = "clients.setup";
-    public const string ClientPreviewPage = "clients.view";
+    public const string ClientPreviewPage   = "clients.view";
 
     public const string MessagesAddPage     = "messages.add";
     public const string MessagesIndexPage   = "messages.index";

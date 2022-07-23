@@ -83,7 +83,12 @@ public partial class RavenSmsClientsManager
 
         client.ConnectionId = string.Empty;
         client.Status = RavenSmsClientStatus.Disconnected;
-        return await _clientsStore.UpdateAsync(client, cancellationToken);
+
+        var result = await _clientsStore.UpdateAsync(client, cancellationToken);
+        if (result.IsSuccess())
+            _eventsPublisher.Publish(new ClientDisconnectedEvent(client.Id, connectionId));
+
+        return result;
     }
 
     /// <inheritdoc/>
@@ -94,7 +99,11 @@ public partial class RavenSmsClientsManager
         client.Status = RavenSmsClientStatus.Connected;
 
         // attach the connection id to the client in database
-        return await _clientsStore.UpdateAsync(client, cancellationToken);
+        var result = await _clientsStore.UpdateAsync(client, cancellationToken);
+        if (result.IsSuccess())
+            _eventsPublisher.Publish(new ClientConnectedEvent(client.Id, connectionId));
+
+        return result;
     }
 }
 
@@ -103,8 +112,14 @@ public partial class RavenSmsClientsManager
 /// </summary>
 public partial class RavenSmsClientsManager : IRavenSmsClientsManager
 {
+    private readonly EventsPublisher _eventsPublisher;
     private readonly IRavenSmsClientsStore _clientsStore;
 
-    public RavenSmsClientsManager(IRavenSmsClientsStore clientsStore) 
-        => _clientsStore = clientsStore;
+    public RavenSmsClientsManager(
+        EventsPublisher eventsPublisher,
+        IRavenSmsClientsStore clientsStore)
+    {
+        _eventsPublisher = eventsPublisher;
+        _clientsStore = clientsStore;
+    }
 }

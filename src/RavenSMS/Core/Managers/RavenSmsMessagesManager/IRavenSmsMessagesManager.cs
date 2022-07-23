@@ -75,4 +75,12 @@ public interface IRavenSmsMessagesManager
     /// <returns>the operation result</returns>
     /// <exception cref="OperationCanceledException">If the System.Threading.CancellationToken is canceled.</exception>
     Task<Result> DeleteAsync(string messageId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// updated the status of the message delivery.
+    /// </summary>
+    /// <param name="messageId">the id of the message</param>
+    /// <param name="status">the delivery status</param>
+    /// <param name="error">the error if any</param>
+    Task UpdateMessageDeliveryStatusAsync(string messageId, RavenSmsMessageStatus status, string error);
 }

@@ -19,7 +19,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Queues\RavenSMS.Queue.Coravel\RavenSMS.Queue.Coravel.csproj" />
+	  <ProjectReference Include="..\..\src\Queues\RavenSMS.Queue.Hangfire\RavenSMS.Queue.Hangfire.csproj" />
 	  <ProjectReference Include="..\..\src\RavenSMS\RavenSMS.csproj" />
+	  <ProjectReference Include="..\..\src\Storages\RavenSMS.Storage.EntityFramework\RavenSMS.Storage.EntityFramework.csproj" />
 	</ItemGroup>
 
 </Project>

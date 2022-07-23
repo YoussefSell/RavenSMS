@@ -16,7 +16,8 @@ public static class Configurations
     /// </remarks>
     public static RavenSmsBuilder UseCoravelQueue(this RavenSmsBuilder builder)
     {
-        builder.ServiceCollection.AddScoped<RavenSmsProcessSmsMessageInvocable>();
+        builder.ServiceCollection.AddScoped<ProcessSmsMessageInvocable>();
+        builder.ServiceCollection.AddScoped(typeof(ProcessEventInvocable<>));
         builder.ServiceCollection.AddScoped<IQueueManager, CoravelQueueManager>();
 
         return builder;
