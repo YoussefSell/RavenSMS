@@ -6,6 +6,7 @@
                 "messages_in_queue": "En la cola",
                 "message_to": "Para",
                 "message_sent_on": "Enviado el",
+                "message_server_name": "Servidor",
                 "message_deliver_at": "Entregar en",
                 "empty_page": "No se han encontrado mensajes"
             },
@@ -15,6 +16,7 @@
         },
         "details": {
             "page_title": "Detalles del mensaje",
+            "page_empty": "Seleccione un mensaje para mostrar los detalles",
             "labels": {
                 "message_id": "Id",
                 "message_content": "Contenido",

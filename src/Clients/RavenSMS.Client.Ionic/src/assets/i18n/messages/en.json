@@ -6,6 +6,7 @@
                 "messages_in_queue": "In the queue",
                 "message_to": "To",
                 "message_deliver_at": "Deliver at",
+                "message_server_name": "Server",
                 "message_sent_on": "Sent on",
                 "empty_page": "No messages Found"
             },
@@ -15,6 +16,7 @@
         },
         "details": {
             "page_title": "Message details",
+            "page_empty": "Select a message to display the details",
             "labels": {
                 "message_id": "Id",
                 "message_content": "Content",
@@ -26,7 +28,8 @@
                 "message_server": "Server"
             },
             "actions": {
-                "remove": "Remove"
+                "remove": "Remove",
+                "navigate_back": "Go back"
             }
         }
     }

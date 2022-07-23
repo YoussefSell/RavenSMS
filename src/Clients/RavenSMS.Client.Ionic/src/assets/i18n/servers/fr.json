@@ -1,31 +1,63 @@
 {
     "pages": {
         "index": {
-            "page_title": "Messages",
+            "page_title": "Serveurs",
             "labels": {
-                "messages_in_queue": "En attente",
-                "message_to": "Pour",
-                "message_sent_on": "Envoyé à",
-                "message_deliver_at": "Livrer à",
-                "empty_page": "Aucun message trouvé"
+                "server_url": "Url",
+                "server_id": "Id",
+                "empty_page": "Aucun serveur trouvé, essayez d'en ajouter un."
             },
             "actions": {
-                "remove": "Supprimer"
+                "details": "Détails",
+                "reconnect": "Reconnecter",
+                "search.placeholder": "Chercher"
             }
         },
         "details": {
-            "page_title": "Détails du message",
+            "page_title": "Détails du serveur",
+            "page_empty": "Sélectionnez un serveur pour afficher les détails",
             "labels": {
-                "message_id": "Id",
-                "message_content": "Contenu",
-                "message_status": "Statut",
-                "message_to": "Pour",
-                "message_sent_on": "Envoyé à",
-                "message_deliver_at": "Livrer à",
-                "message_created_on": "Créé à"
+                "server_id": "Id",
+                "server_url": "Url",
+                "server_name": "",
+                "server_status": "Statut",
+                "server_client_info_title": "Informations client",
+                "server_client_info_id": "Id Client",
+                "server_client_info_name": "Nom Client",
+                "server_client_info_description": "Description"
             },
             "actions": {
-                "remove": "Supprimer"
+                "remove": "Supprimer le serveur",
+                "navigate_back": "Retourner"
+            }
+        },
+        "setup": {
+            "page_title": "Configuré",
+            "labels": {
+                "heading": "Paramétrage de application client",
+                "config_description": "commencez par créer une application sur votre serveur, puis scannez le code QR pour configurer cette instance client.",
+                "server_url": "URL du serveur",
+                "server_id": "Id du serveur",
+                "server_name": "Nom du serveur",
+                "client_id": "Id du client"
+            },
+            "actions": {
+                "start_scan": "lancer la numérisation",
+                "open_settings": "ouvrir les paramètres",
+                "grant_permission": "donner la permission",
+                "configure": "configurer"
+            },
+            "servers": {
+                "done": "fini.",
+                "ready_for_scan": "prêt pour la numérisation",
+                "invalid_setup_form_value": "valeur de formulaire invalide, veuillez entrer des valeurs valides.",
+                "permission_request_canceled": "vous avez annulé la demande, l'autorisation de la caméra est requise pour scanner le QR",
+                "camera_permission_required": "l'autorisation de la caméra est requise pour scanner le QR, veuillez autoriser l'autorisation de continuer la configuration.",
+                "checking_permission": "vérification de l'autorisation de la caméra...",
+                "start_scanning": "démarrage de la numérisation QR ...",
+                "invalid_qr_value": "valeur de code QR invalide, veuillez scanner le code QR sur la page de configuration du client.",
+                "failed_to_read_qr_value": "n'a pas pu lire le code QR, veuillez réessayer.",
+                "permission_denied": "vous avez refusé l'autorisation de la caméra, veuillez activer l'autorisation à partir du paramètre."
             }
         }
     }

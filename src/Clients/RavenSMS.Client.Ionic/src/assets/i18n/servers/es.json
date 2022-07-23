@@ -1,62 +1,63 @@
 {
     "pages": {
         "index": {
-            "page_title": "Servers",
+            "page_title": "Servidores",
             "labels": {
                 "server_url": "Url",
                 "server_id": "Id",
-                "empty_page": "No servers Found, try adding one."
+                "empty_page": "No se encontraron servidores, intente agregar uno."
             },
             "actions": {
-                "details": "Details",
-                "search.placeholder": "Search"
+                "details": "Detalles",
+                "reconnect": "Reconectar",
+                "search.placeholder": "Buscar"
             }
         },
         "details": {
-            "page_title": "Server details",
-            "page_empty": "Select a server to display the details",
+            "page_title": "Detalles del servidor",
+            "page_empty": "Seleccione un servidor para mostrar los detalles",
             "labels": {
                 "server_id": "Id",
                 "server_url": "Url",
-                "server_name": "Name",
-                "server_status": "Status",
-                "server_client_info_title": "Client Info",
-                "server_client_info_id": "Client Id",
-                "server_client_info_name": "Client Name",
-                "server_client_info_description": "Description"
+                "server_name": "Nombre",
+                "server_status": "Estado",
+                "server_client_info_title": "Información del cliente",
+                "server_client_info_id": "Id cliente",
+                "server_client_info_name": "Nombre cliente",
+                "server_client_info_description": "Descripción cliente"
             },
             "actions": {
-                "remove": "Remove server",
-                "navigate_back": "Go back"
+                "remove": "Eliminar servidor",
+                "navigate_back": "Volver"
             }
         },
         "setup": {
-            "page_title": "Setup",
+            "page_title": "Configuración",
             "labels": {
-                "heading": "Client application configuration",
-                "config_description": "first create an app on your server, and then scan the qr code to configure this client instance.",
-                "server_url": "Server Url",
-                "server_id": "Server Id",
-                "server_name": "Server Name",
-                "client_id": "Client Id"
+                "heading": "Configuración de la aplicación cliente",
+                "config_description": "primero, cree una aplicación en su servidor, luego escanee el código QR para configurar esta instancia de cliente.",
+                "server_url": "URL del servidor",
+                "server_id": "Id servidor",
+                "server_name": "Nombre servidor",
+                "client_id": "Id cliente"
             },
             "actions": {
-                "start_scan": "start scanning",
-                "open_settings": "open settings",
-                "grant_permission": "grant permission",
-                "configure": "configure"
+                "start_scan": "empezar a escanear",
+                "open_settings": "configuración abierta",
+                "grant_permission": "conceder permiso",
+                "configure": "configurar"
             },
             "servers": {
-                "done": "done.",
-                "ready_for_scan": "ready for scan",
-                "invalid_setup_form_value": "invalid form value, please enter a valid values.",
-                "permission_request_canceled": "you have canceled the request, the camera permission is required to scan the QR",
-                "camera_permission_required": "the camera permission is required to scan the QR, please allow the permission to continue the configuration.",
-                "checking_permission": "checking camera permission ...",
-                "start_scanning": "starting the QR scanning ...",
-                "invalid_qr_value": "invalid QR code value, please scan the QR code on the Client Setup page.",
-                "failed_to_read_qr_value": "failed to read the QR code, please try again.",
-                "permission_denied": "you have denied the camera permission, please enable the permission form the setting."
+                "done": "hecho.",
+                "ready_for_scan": "Listo para escanear",
+                "invalid_setup_form_value": "valor de formulario no válido, introduzca valores válidos.",
+                "permission_request_canceled": "ha cancelado la solicitud, se requiere el permiso de la cámara para escanear el QR",
+                "camera_permission_required": "Se requiere el permiso de la cámara para escanear el QR, permita el permiso para continuar con la configuración.",
+                "checking_permission": "Verifique el permiso de la cámara...",
+                "start_scanning": "iniciando el escaneo QR...",
+                "invalid_qr_value": "valor de código QR no válido, escanee el código QR en la página Configuración del cliente.",
+                "failed_to_read_qr_value": "No se pudo leer el código QR, inténtalo de nuevo.",
+                "permission_denied": "ha denegado el permiso de la cámara, habilite el permiso de la configuración."
             }
         }
     }

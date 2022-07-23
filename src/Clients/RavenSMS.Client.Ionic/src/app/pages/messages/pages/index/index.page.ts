@@ -1,4 +1,4 @@
-import { MessagesStoreActions, MessagesStoreSelectors, RootStoreState } from 'src/app/store';
+import { MessagesStoreActions, MessagesStoreSelectors, RootStoreState, ServersStoreSelectors } from 'src/app/store';
 import { MessageStatus } from 'src/app/core/constants/enums';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IMessages } from 'src/app/core/models';
@@ -25,6 +25,8 @@ export class IndexPage implements OnInit, OnDestroy {
   _filteredMessages: ReadonlyArray<IMessages> = [];
   _messagesGroups: { date: string; messages: IMessages[] }[] = [];
 
+  _servers: { [key: string]: string } = {};
+
   constructor(
     private _config: Config,
     private _store: Store<RootStoreState.State>,
@@ -37,6 +39,14 @@ export class IndexPage implements OnInit, OnDestroy {
         this._messages = messages;
         this.groupMessages();
       });
+
+    this._subSink.sink = this._store.select(ServersStoreSelectors.ServersSelector)
+      .subscribe(servers => {
+        this._servers = servers.reduce<{ [key: string]: string }>((previousValue, currentValue, index) => {
+          previousValue[currentValue.id] = currentValue.name;
+          return previousValue;
+        }, {});
+      })
 
     this._is_ios = this._config.get('mode') === 'ios';
   }

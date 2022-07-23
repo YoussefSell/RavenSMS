@@ -7,6 +7,7 @@
                 "message_to": "Pour",
                 "message_sent_on": "Envoyé à",
                 "message_deliver_at": "Livrer à",
+                "message_server_name": "Serveur",
                 "empty_page": "Aucun message trouvé"
             },
             "actions": {
@@ -15,6 +16,7 @@
         },
         "details": {
             "page_title": "Détails du message",
+            "page_empty": "Sélectionnez un message pour afficher les détails",
             "labels": {
                 "message_id": "Id",
                 "message_content": "Contenu",

@@ -40,10 +40,9 @@ export class DetailPage {
 
     this._subSink.sink = this._store.select(MessagesStoreSelectors.SelectedMessageSelector)
       .subscribe(message => {
+        this._message = message;
         if (message) {
-          this._message = message;
           this._store.dispatch(ServersStoreActions.SelectServer({ serverId: message.serverId }));
-          return;
         }
       });
 

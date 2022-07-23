@@ -74,9 +74,9 @@
                 {{translate('messages.pages.index.labels.message_sent_on')}}:
                 {{message.sentOn | date:'fullTime'}}
               </p>
-              <p *ngIf="message.deliverAt">
-                {{translate('messages.pages.index.labels.message_deliver_at')}}:
-                {{message.deliverAt | date:'fullTime'}}
+              <p *ngIf="message.serverId">
+                {{translate('messages.pages.index.labels.message_server_name')}}:
+                {{_servers[message.serverId]}}
               </p>
             </ion-label>
           </ion-item>
