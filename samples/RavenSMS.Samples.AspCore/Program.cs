@@ -34,10 +34,10 @@ builder.Services.AddHangfire(configuration => configuration
 builder.Services.AddHangfireServer();
 builder.Services.AddQueue();
 
-builder.Services.AddSingleton<IEventHandler<MessageSentEvent>, MessageEventHandler>();
-builder.Services.AddSingleton<IEventHandler<MessageUnsentEvent>, MessageEventHandler>();
-builder.Services.AddSingleton<IEventHandler<ClientConnectedEvent>, ClientConnectedEventHandler>();
-builder.Services.AddSingleton<IEventHandler<ClientDisconnectedEvent>, ClientDisconnectedEventHandler>();
+builder.Services.AddScoped<IEventHandler<MessageSentEvent>, MessageEventHandler>();
+builder.Services.AddScoped<IEventHandler<MessageUnsentEvent>, MessageEventHandler>();
+builder.Services.AddScoped<IEventHandler<ClientConnectedEvent>, ClientConnectedEventHandler>();
+builder.Services.AddScoped<IEventHandler<ClientDisconnectedEvent>, ClientDisconnectedEventHandler>();
 
 // add SMS.Net services
 builder.Services
