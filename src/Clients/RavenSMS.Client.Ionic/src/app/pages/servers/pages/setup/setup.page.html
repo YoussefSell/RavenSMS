@@ -1,4 +1,12 @@
 <ng-container *transloco="let translate">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{translate('servers.pages.setup.page_title')}}</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="'/app/tabs/servers'"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   <ion-content
     class="ion-padding-top ion-padding-start ion-padding-end"
     [style.--background]="scanActive ? '#00000000' : 'var(--ion-item-background, var(--ion-background-color, #fff))'"

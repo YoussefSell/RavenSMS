@@ -32,7 +32,7 @@
             }
         },
         "setup": {
-            "page_title": "Setup",
+            "page_title": "Connect a server",
             "labels": {
                 "heading": "Client application configuration",
                 "config_description": "first, create an app on your server, then scan the QR code to configure this client instance.",
@@ -47,7 +47,7 @@
                 "grant_permission": "grant permission",
                 "configure": "configure"
             },
-            "servers": {
+            "messages": {
                 "done": "done.",
                 "ready_for_scan": "ready for scan",
                 "invalid_setup_form_value": "invalid form value, please enter valid values.",

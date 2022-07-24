@@ -17,7 +17,7 @@ builder.Services.AddCors(options =>
             "capacitor://localhost",
             "http://localhost:8100",
             "http://192.168.1.99:8100",
-            "http://192.168.1.108ve:8100",
+            "http://192.168.1.108:8100",
             "http://192.168.1.102:8100"
         )
         .AllowAnyMethod()

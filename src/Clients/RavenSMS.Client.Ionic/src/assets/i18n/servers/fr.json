@@ -32,7 +32,7 @@
             }
         },
         "setup": {
-            "page_title": "Configuré",
+            "page_title": "Connecter un serveur",
             "labels": {
                 "heading": "Paramétrage de application client",
                 "config_description": "commencez par créer une application sur votre serveur, puis scannez le code QR pour configurer cette instance client.",
