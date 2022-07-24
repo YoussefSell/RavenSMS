@@ -1,4 +1,4 @@
-package net.sms.ravensms;
+package com.youssefsellami.ravensms;
 
 import com.getcapacitor.BridgeActivity;
 
