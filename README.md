@@ -17,3 +17,11 @@ there are two main component in the RavenSMS architecture:
 
 when you send a message from RavenSMS server the message will be queued for immediate delivery or after a delay. than when it time to send the message a websocket command is sent to the client (your phone) using SignalR with the message details and the message will be sent.
 
+![ravensms demo](https://github.com/YoussefSell/RavenSMS/blob/master/assets/screenshots/ravensms-demo.gif)
+
+## Getting started
+
+first you need to download the latest version of the APP into your Android phone, you can find the APK file in the [releases page](https://github.com/YoussefSell/RavenSMS/releases)
+
+then we need to configure the server, in your ASP core project install RavenSMS `Install-Package RavenSMS`.  
+```NOTE: RavenSMS is built on .NET 6, so your project needs to be at least targeting .NET 6 or above.```
