@@ -131,7 +131,7 @@ public static class RavenSmsHubExtensions
         catch (Exception ex)
         {
             return Result.Failure()
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 
@@ -167,7 +167,7 @@ public static class RavenSmsHubExtensions
         catch (Exception ex)
         {
             return Result.Failure()
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 
@@ -193,7 +193,7 @@ public static class RavenSmsHubExtensions
         catch (Exception ex)
         {
             return Result.Failure()
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 }

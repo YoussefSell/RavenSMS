@@ -60,7 +60,7 @@ public partial class RavenSmsClientsStore : IRavenSmsClientsStore
         {
             return Result.Failure<RavenSmsClient>()
                 .WithMessage("Failed to save the client, an exception has been accrued")
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 
@@ -77,7 +77,7 @@ public partial class RavenSmsClientsStore : IRavenSmsClientsStore
         {
             return Result.Failure<RavenSmsClient>()
                 .WithMessage("Failed to update the client, an exception has been accrued")
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 
@@ -94,7 +94,7 @@ public partial class RavenSmsClientsStore : IRavenSmsClientsStore
         {
             return Result.Failure<RavenSmsClient>()
                 .WithMessage("Failed to update the client, an exception has been accrued")
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 }

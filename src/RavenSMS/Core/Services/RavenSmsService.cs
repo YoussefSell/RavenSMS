@@ -48,7 +48,7 @@ public partial class RavenSmsService : IRavenSmsService
         catch (Exception ex)
         {
             return Result.Failure()
-                .WithErrors(ex);
+                .WithError(ex);
         }
     }
 }

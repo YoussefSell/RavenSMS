@@ -14,7 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Coravel" Version="4.1.0" />
+		<PackageReference Include="Coravel" Version="4.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
