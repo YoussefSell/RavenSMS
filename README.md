@@ -24,4 +24,44 @@ when you send a message from RavenSMS server the message will be queued for imme
 first you need to download the latest version of the APP into your Android phone, you can find the APK file in the [releases page](https://github.com/YoussefSell/RavenSMS/releases)
 
 then we need to configure the server, in your ASP core project install RavenSMS `Install-Package RavenSMS`.  
-```NOTE: RavenSMS is built on .NET 6, so your project needs to be at least targeting .NET 6 or above.```
+NOTE: RavenSMS is built on .NET 6, so your project needs to be at least targeting .NET 6 or above.
+
+after installing the package add RavenSMS in the services configuration
+```csharp
+builder.Services
+    .AddRavenSMS(config =>
+    {
+        config.UseInMemoryQueue();
+        config.UseInMemoryStores();
+    });
+```
+and in your app pipline endpoints configuration add RavenSMS Hub
+```csharp
+app.MapRavenSmsHub();
+
+```
+a complet example of the configuration can be found on the [sample app](https://github.com/YoussefSell/RavenSMS/blob/master/samples/RavenSMS.Samples.AspCore/Program.cs).
+
+and that it, now you can run the app and navigate to `/RavenSMS`.  
+
+now lets connect your phone with the server, (you can follow the demo above)
+1. first navigate to `/RavenSMS/Clients`, here you will see a client already added for you by default.
+2. click on *Setup* action.
+3. you will be redirected to the client setup page and a QR code will be presented to you.
+4. open the app on you phone and on the Servers page click on the + button
+5. now click on *START SCANNING* (the camera permission is required), and scan the QR code.
+6. done, your phone should now be connected to your server.
+
+Note: when you run your ASP core project it will be served on localhost, which is not accessible to the internet it is only on your machine. in order to be able to connect your phone to a localhost server, you need to use a reverse proxy like [Ngrok](https://ngrok.com/).
+
+a complete documentation can be found on the [Wiki page](https://github.com/YoussefSell/RavenSMS/wiki).
+
+## RavenSMS Dashboard
+
+![ravensms dashboard screenshot](https://github.com/YoussefSell/RavenSMS/blob/master/assets/screenshots/ravensms-dashboard.png)
+
+the dashboard allows you to control and monitor your connected clients and have statistics on the sent messages. and also you can monitor the sending status of messages so that if one fails you can resend it.
+
+a complete documentation can be found on the [Wiki page](https://github.com/YoussefSell/RavenSMS/wiki).
+
+
