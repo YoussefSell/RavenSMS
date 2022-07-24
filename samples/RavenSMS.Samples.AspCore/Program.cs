@@ -41,12 +41,12 @@ builder.Services.AddScoped<IEventHandler<MessageUnsentEvent>, MessageEventHandle
 builder.Services.AddScoped<IEventHandler<ClientConnectedEvent>, ClientConnectedEventHandler>();
 builder.Services.AddScoped<IEventHandler<ClientDisconnectedEvent>, ClientDisconnectedEventHandler>();
 
-// add SMS.Net services
+// add RavenSMS services
 builder.Services
     .AddRavenSMS(config =>
     {
-        config.UseCoravelQueue();
-        config.UseEntityFrameworkStores<ApplicationDbContext>();
+        config.UseInMemoryQueue();
+        config.UseInMemoryStores();
     });
 
 var app = builder.Build();
