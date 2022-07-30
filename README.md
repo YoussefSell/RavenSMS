@@ -8,14 +8,14 @@ the idea behind RavenSMS has raised when i found that most SMS delivery channels
 
 so i thought, i have a phone subscription with unlimited SMS messages to send, why not use my phone to send the messages. and RavenSMS has born.
 
-## How it works?
+## How does it work?
 
-there are two main component in the RavenSMS architecture:
+there are two main components in the RavenSMS architecture:
 
-- server: responsible for managing and sending messages, and broadcasting events to the clients.
-- client: is the receiver of the events, which is your phone with RavenSMS app installed on it.
+- Server: responsible for managing and sending messages, and broadcasting events to the clients.
+- Client: is the receiver of the events, which is your phone with the RavenSMS app installed on it.
 
-when you send a message from RavenSMS server the message will be queued for immediate delivery or after a delay. than when it time to send the message a websocket command is sent to the client (your phone) using SignalR with the message details and the message will be sent.
+when you send a message from the RavenSMS server the message will be queued for immediate delivery or after a delay. then when it is time to send the message a WebSocket command is sent to the client (your phone) using SignalR with the message details and the message will be sent.
 
 ![ravensms demo](https://github.com/YoussefSell/RavenSMS/blob/master/assets/screenshots/ravensms-demo.gif)
 
