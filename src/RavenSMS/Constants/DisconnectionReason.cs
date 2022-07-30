@@ -3,7 +3,7 @@
 /// <summary>
 ///  class that defines the disconnection reasons
 /// </summary>
-internal static class DisconnectionReason
+public static class DisconnectionReason
 {
     public const string Disconnect = "disconnect";
     public const string ClientDeleted = "client_deleted";

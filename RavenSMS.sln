@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RavenSMS.Queue.Hangfire", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RavenSMS.Storage.EntityFramework", "src\Storages\RavenSMS.Storage.EntityFramework\RavenSMS.Storage.EntityFramework.csproj", "{5FCC1F31-A0AA-40A3-A9B0-A532192CE385}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RavenSMS.Dashboard", "src\RavenSMS.Dashboard\RavenSMS.Dashboard.csproj", "{B07E56CC-D508-4482-A266-E442E6140F32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{5FCC1F31-A0AA-40A3-A9B0-A532192CE385}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FCC1F31-A0AA-40A3-A9B0-A532192CE385}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FCC1F31-A0AA-40A3-A9B0-A532192CE385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B07E56CC-D508-4482-A266-E442E6140F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07E56CC-D508-4482-A266-E442E6140F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07E56CC-D508-4482-A266-E442E6140F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07E56CC-D508-4482-A266-E442E6140F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{C4BEFCCD-E8AD-40E7-B06C-3D704C5EED2A} = {57788BE8-09B8-4941-952B-4FFA6761EA1F}
 		{61BE2583-137C-43FA-93D5-2256A19DDD33} = {57788BE8-09B8-4941-952B-4FFA6761EA1F}
 		{5FCC1F31-A0AA-40A3-A9B0-A532192CE385} = {ECCF0CC7-8162-4213-91CF-5E97DAD0E5CA}
+		{B07E56CC-D508-4482-A266-E442E6140F32} = {34944EE8-4EC1-4088-B8B6-060042EFF8E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B897765-B7F9-489A-867D-DD0BA98C6A36}

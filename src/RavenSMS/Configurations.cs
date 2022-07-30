@@ -69,7 +69,6 @@ public static class Configurations
     internal static RavenSmsBuilder RegisterOptions(this RavenSmsBuilder builder)
     {
         builder.ServiceCollection.Configure<RavenSmsOptions>(builder.InitOptions);
-        builder.ServiceCollection.ConfigureOptions(typeof(RavenSmsUIConfigureOptions));
         return builder;
     }
 

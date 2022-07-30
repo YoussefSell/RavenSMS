@@ -22,6 +22,9 @@ jobs:
       - name: Pack RavenSMS
         run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/RavenSMS/RavenSMS.csproj -o .
 
+      - name: Pack RavenSMS.Dashboard
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/RavenSMS.Dashboard/RavenSMS.Dashboard.csproj -o .
+
       - name: Pack RavenSMS.Storage.EntityFramework
         run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build -c Release src/Storages/RavenSMS.Storage.EntityFramework/RavenSMS.Storage.EntityFramework.csproj -o .
 

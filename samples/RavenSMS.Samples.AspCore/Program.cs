@@ -40,6 +40,8 @@ builder.Services.AddQueue();
 builder.Services
     .AddRavenSMS(config =>
     {
+        config.UseDashboard();
+
         config.UseInMemoryQueue();
         config.UseInMemoryStores();
         
