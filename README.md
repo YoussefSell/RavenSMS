@@ -54,14 +54,57 @@ now lets connect your phone with the server, (you can follow the demo above)
 
 Note: when you run your ASP core project it will be served on localhost, which is not accessible to the internet it is only on your machine. in order to be able to connect your phone to a localhost server, you need to use a reverse proxy like [Ngrok](https://ngrok.com/).
 
-a complete documentation can be found on the [Wiki page](https://github.com/YoussefSell/RavenSMS/wiki).
-
 ## RavenSMS Dashboard
 
 ![ravensms dashboard screenshot](https://github.com/YoussefSell/RavenSMS/blob/master/assets/screenshots/ravensms-dashboard.png)
 
 the dashboard allows you to control and monitor your connected clients and have statistics on the sent messages. and also you can monitor the sending status of messages so that if one fails you can resend it.
 
+## RavenSMS In Code
+
+RavenSMS provide you with a service called `IRavenSmsService` that you can inject into your code and use to send SMS messages
+
+```csharp
+IRavenSmsService service;
+
+var message = new Message("this is a test message :)",
+    from: "00**********",
+    to: "00**********");
+    
+await service.SendAsync(message);
+```
+
+## RavenSMS Events
+
+in some cases, we need to perform actions based on events that happen in our system, for example when a client is disconnected we need to get notified so that we can reconnect the client again.
+
+RavenSms allows you to perform this types of actions using EventHandlers, it exposes a number of internal events that you can subscribe to them and perform the actions accordingly.
+
+```csharp
+// 1. create your event handler
+public class ClientDisconnectedEventHandler : IEventHandler<ClientDisconnectedEvent>
+{
+    private readonly ILogger _logger;
+
+    public ClientDisconnectedEventHandler(ILogger<ClientDisconnectedEventHandler> logger)
+        => _logger = logger;
+
+    public Task HandleAsync(ClientDisconnectedEvent @event)
+    {
+        _logger.LogInformation("client disconnected {@info}", new { @event.ClientId, @event.ConnectionId });
+        return Task.CompletedTask;
+    }
+}
+
+// 2. register the event hanlder 
+builder.Services
+    .AddRavenSMS(config =>
+    {
+        config.RegisterEventHandler<ClientDisconnectedEvent, ClientDisconnectedEventHandler>();
+        
+        // code ...
+    });
+
+```
+
 a complete documentation can be found on the [Wiki page](https://github.com/YoussefSell/RavenSMS/wiki).
-
-
