@@ -19,6 +19,8 @@ when you send a message from the RavenSMS server the message will be queued for 
 
 ![ravensms demo](https://github.com/YoussefSell/RavenSMS/blob/master/assets/screenshots/ravensms-demo.gif)
 
+a complete documentation can be found on the [Wiki page](https://github.com/YoussefSell/RavenSMS/wiki).
+
 ## Getting started
 
 first you need to download the latest version of the APP into your Android phone, you can find the APK file in the [releases page](https://github.com/YoussefSell/RavenSMS/releases)
