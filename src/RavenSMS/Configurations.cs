@@ -27,6 +27,14 @@ public static class Configurations
         endpoints.MapHub<RavenSmsWebSocketManager>("RavenSMS/Hub");
     }
 
+    public static RavenSmsBuilder RegisterEventHandler<TEvent, TEventHanlder>(this RavenSmsBuilder builder, RegistrationScope scope = RegistrationScope.Scoped)
+        where TEventHanlder : class, IEventHandler<TEvent>
+        where TEvent: IEvent
+    {
+        builder.ServiceCollection.Add<IEventHandler<TEvent>, TEventHanlder>(scope);
+        return builder;
+    }
+
     /// <summary>
     /// Set RavenSMS to use in memory stores to persist the data.
     /// </summary>

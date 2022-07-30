@@ -36,17 +36,17 @@ builder.Services.AddHangfire(configuration => configuration
 builder.Services.AddHangfireServer();
 builder.Services.AddQueue();
 
-builder.Services.AddScoped<IEventHandler<MessageSentEvent>, MessageEventHandler>();
-builder.Services.AddScoped<IEventHandler<MessageUnsentEvent>, MessageEventHandler>();
-builder.Services.AddScoped<IEventHandler<ClientConnectedEvent>, ClientConnectedEventHandler>();
-builder.Services.AddScoped<IEventHandler<ClientDisconnectedEvent>, ClientDisconnectedEventHandler>();
-
 // add RavenSMS services
 builder.Services
     .AddRavenSMS(config =>
     {
         config.UseInMemoryQueue();
         config.UseInMemoryStores();
+        
+        config.RegisterEventHandler<MessageSentEvent, MessageEventHandler>();
+        config.RegisterEventHandler<MessageUnsentEvent, MessageEventHandler>();
+        config.RegisterEventHandler<ClientConnectedEvent, ClientConnectedEventHandler>();
+        config.RegisterEventHandler<ClientDisconnectedEvent, ClientDisconnectedEventHandler>();
     });
 
 var app = builder.Build();
