@@ -42,15 +42,15 @@ and in your app pipline endpoints configuration add RavenSMS Hub
 app.MapRavenSmsHub();
 
 ```
-a complet example of the configuration can be found on the [sample app](https://github.com/YoussefSell/RavenSMS/blob/master/samples/RavenSMS.Samples.AspCore/Program.cs).
+a complete example of the configuration can be found on the [sample app](https://github.com/YoussefSell/RavenSMS/blob/master/samples/RavenSMS.Samples.AspCore/Program.cs).
 
 and that it, now you can run the app and navigate to `/RavenSMS`.  
 
 now lets connect your phone with the server, (you can follow the demo above)
 1. first navigate to `/RavenSMS/Clients`, here you will see a client already added for you by default.
-2. click on *Setup* action.
+2. click on the *Setup* action.
 3. you will be redirected to the client setup page and a QR code will be presented to you.
-4. open the app on you phone and on the Servers page click on the + button
+4. open the app on your phone and on the Servers page click on the + button
 5. now click on *START SCANNING* (the camera permission is required), and scan the QR code.
 6. done, your phone should now be connected to your server.
 
