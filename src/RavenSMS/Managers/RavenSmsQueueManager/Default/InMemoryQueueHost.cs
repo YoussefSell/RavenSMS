@@ -44,18 +44,6 @@ internal partial class InMemoryQueueHost : IHostedService, IDisposable
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
-    /// <inheritdoc/>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposed)
-        {
-            if (disposing)
-                _timer?.Dispose();
-
-            _disposed = true;
-        }
-    }
 }
 
 /// <summary>
@@ -66,13 +54,13 @@ internal partial class InMemoryQueueHost : IHostedService, IDisposable
     private bool _disposed;
 
     private Timer? _timer;
-    private readonly InMemoryQueue _queue;
+    private readonly InMemoryQueueManager _queue;
     private readonly SemaphoreSlim _signal = new(0);
     private readonly CancellationTokenSource _shutdown = new();
 
-    public InMemoryQueueHost(IInMemoryQueue queue)
+    public InMemoryQueueHost(IQueueManager queue)
     {
-        _queue = queue as InMemoryQueue
+        _queue = queue as InMemoryQueueManager
             ?? throw new RavenSmsException("the inMemory Queue is not registered, call UseInMemoryQueue() on RavenSmsBuilder");
     }
 
@@ -94,5 +82,17 @@ internal partial class InMemoryQueueHost : IHostedService, IDisposable
             state: null,
             dueTime: TimeSpan.Zero,
             period: TimeSpan.FromSeconds(5));
+    }
+
+    /// <inheritdoc/>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+                _timer?.Dispose();
+
+            _disposed = true;
+        }
     }
 }

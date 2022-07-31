@@ -56,7 +56,6 @@ public static class Configurations
     public static RavenSmsBuilder UseInMemoryQueue(this RavenSmsBuilder builder)
     {
         builder.ServiceCollection.AddSingleton<IQueueManager, InMemoryQueueManager>();
-        builder.ServiceCollection.AddSingleton<IInMemoryQueue, InMemoryQueue>();
         builder.ServiceCollection.AddHostedService<InMemoryQueueHost>();
 
         return builder;

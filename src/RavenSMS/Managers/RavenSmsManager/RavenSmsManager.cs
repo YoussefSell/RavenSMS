@@ -62,7 +62,7 @@ public partial class RavenSmsManager : IRavenSmsManager
     public async Task<Result> QueueMessageAsync(RavenSmsMessage message, CancellationToken cancellationToken = default)
     {
         // queue the message for future processing
-        message.JobQueueId = _queueManager.QueueMessage(message, cancellationToken);
+        message.JobQueueId = _queueManager.QueueMessage(message);
         message.Status = RavenSmsMessageStatus.Queued;
 
         // save the message
@@ -82,7 +82,7 @@ public partial class RavenSmsManager : IRavenSmsManager
     public async Task<Result> QueueMessageAsync(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
     {
         // queue the message for future processing
-        message.JobQueueId = _queueManager.QueueMessage(message, delay, cancellationToken);
+        message.JobQueueId = _queueManager.QueueMessage(message, delay);
         message.Status = RavenSmsMessageStatus.Queued;
         message.DeliverAt = DateTimeOffset.UtcNow.Add(delay);
 

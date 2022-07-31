@@ -6,11 +6,8 @@
 public partial class CoravelQueueManager : IQueueManager
 {
     /// <inheritdoc/>
-    public string QueueEvent<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : IEvent
+    public string QueueEvent<TEvent>(TEvent @event) where TEvent : IEvent
     {
-        if (cancellationToken.IsCancellationRequested)
-            cancellationToken.ThrowIfCancellationRequested();
-
         var queueId = _queue
             .QueueInvocableWithPayload<ProcessEventInvocable<TEvent>, ProcessEventInvocablePayload<TEvent>>(
                 ProcessEventInvocablePayload<TEvent>.Create(@event));
@@ -19,11 +16,8 @@ public partial class CoravelQueueManager : IQueueManager
     }
 
     /// <inheritdoc/>
-    public string QueueMessage(RavenSmsMessage message, CancellationToken cancellationToken = default)
+    public string QueueMessage(RavenSmsMessage message)
     {
-        if (cancellationToken.IsCancellationRequested)
-            cancellationToken.ThrowIfCancellationRequested();
-
         var queueId = _queue
             .QueueInvocableWithPayload<ProcessSmsMessageInvocable, ProcessSmsMessageInvocablePayload>(
                 ProcessSmsMessageInvocablePayload.Create(message.Id));
@@ -32,11 +26,8 @@ public partial class CoravelQueueManager : IQueueManager
     }
 
     /// <inheritdoc/>
-    public string QueueMessage(RavenSmsMessage message, TimeSpan delay, CancellationToken cancellationToken = default)
+    public string QueueMessage(RavenSmsMessage message, TimeSpan delay)
     {
-        if (cancellationToken.IsCancellationRequested)
-            cancellationToken.ThrowIfCancellationRequested();
-
         var queueId = _queue
             .QueueInvocableWithPayload<ProcessSmsMessageInvocable, ProcessSmsMessageInvocablePayload>(
                 ProcessSmsMessageInvocablePayload.Create(message.Id, delay));
